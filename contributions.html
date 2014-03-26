@@ -3,7 +3,6 @@
 <head>
 <link rel="stylesheet" type="text/css" href="/css/generic.css">
 <link rel="stylesheet" type="text/css" href="/css/contributions.css">
-<script src="/js/contributions.js"></script>
 </head>
 
 <div id="shadow">
@@ -11,15 +10,34 @@
 
 <div id="post_form">
    <form method="post" action="/contributions/post">
+      <!-- Title input -->
       Question Title:
       <input type="text" name="question_title">
       <br/>
+
+      <!-- Content input -->
       Question Content:
       <input type="text" name="question_content">
+      <br/>
+
+      <!-- Tag input -->
+      Search Tags:
+      <input type="text" id="tag_search">
+      <table id="search_results">
+         <!-- this table gets populated with search results -->
+      </table>
+      <ul id="question_tags">
+         <!-- this list gets populated with user selected tags -->
+      </ul>
+      <br/>
+
+      <!-- Submit -->
       <button type="submit">
          Submit
       </button>
    </form>
+
+   <!-- Button to close out of the post window -->
    <button id="post_form_close" onClick="closePostBox()">
       Close
    </button>
@@ -52,4 +70,5 @@
    </div>
 </body>
 
+<script src="/js/contributions.js"></script>
 </html>

@@ -30,6 +30,7 @@ class Question(ndb.Model):
     author = ndb.KeyProperty(UserAccount)
     question_title = ndb.StringProperty()
     question_content = ndb.StringProperty()
+    views = ndb.IntegerProperty()
     authenticity = ndb.IntegerProperty()
     tags = ndb.StringProperty(repeated=True)
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
@@ -84,6 +85,7 @@ class PostHandler(webapp2.RequestHandler):
         question = Question(author = getUser(user),
                             question_title = self.request.get('question_title'),
                             question_content = self.request.get('question_content'),
+                            views = 0,
                             authenticity = 0,
                             tags = ['test_tag_1', 'test_tag_2'])
         question.put()

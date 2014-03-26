@@ -1,3 +1,8 @@
+td:hover {
+   cursor: default;
+   background-color: gray;
+}
+
 #post_form {
    position: absolute;
    margin-top: 100px;
@@ -14,4 +19,11 @@
    height: 30px;
    font-size: 12px;
    float: right;
+}
+
+#search_results {
+   width: 200px;
+   height: auto;
+   background:white;
+   border-collapse:collapse;
 }
