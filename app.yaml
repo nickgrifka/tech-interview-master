@@ -5,11 +5,17 @@ api_version: 1
 threadsafe: false
 
 handlers:
-- url: /stylesheets
+- url: /img
+  static_dir: images
+
+- url: /css
   static_dir: stylesheets
 
+- url: /js
+  static_dir: javascript
+
 - url: /.*
-  script: helloworld.application
+  script: main.application
 
 libraries:
 - name: webapp2
