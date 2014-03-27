@@ -3,7 +3,7 @@ td:hover {
    background-color: gray;
 }
 
-#post_form {
+#post_form_div {
    position: absolute;
    margin-top: 100px;
    margin-left: 400px;

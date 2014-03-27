@@ -67,6 +67,11 @@ class ContributionsPageHandler(webapp2.RequestHandler):
         if not user:
             self.redirect(users.create_login_url(self.request.uri))
         else:
+            # Add the user if he/she is not already in the db
+            if not getUser(user):
+                userAccount = UserAccount(user=user)
+                userAccount.put()
+
             template_values = {}
             # Fetch the user's previous posts
             # TODO
@@ -82,18 +87,37 @@ class PostHandler(webapp2.RequestHandler):
 
     def post(self):
         user = users.get_current_user()
-        question = Question(author = getUser(user),
-                            question_title = self.request.get('question_title'),
-                            question_content = self.request.get('question_content'),
-                            views = 0,
-                            authenticity = 0,
-                            tags = ['test_tag_1', 'test_tag_2'])
+        question = Question(author=getUser(user).key,
+                            question_title=self.request.get('question_title'),
+                            question_content=self.request.get('question_content'),
+                            views=0,
+                            authenticity=0,
+                            tags=self.request.get_all('tags'))
         question.put()
-        self.redirect('/');
+        # self.redirect('/');
 
+        # Test page
+        template_values = {
+            'author': question.author,
+            'question_title': question.question_title,
+            'question_content': question.question_content,
+            'views': question.views,
+            'authenticity': question.authenticity,
+            'tags': question.tags,
+        }
+
+        template = JINJA_ENVIRONMENT.get_template('testDb.html')
+        self.response.write(template.render(template_values))
+
+class TestDbHandler(webapp2.RequestHandler):
+
+    def get(self):
+        template = JINJA_ENVIRONMENT.get_template('contributions.html')
+        self.response.write(template.render(template_values))
 
 application = webapp2.WSGIApplication([
     ('/', MainPageHandler),
     ('/contributions', ContributionsPageHandler),
     ('/contributions/post', PostHandler),
+    ('/testDb', TestDbHandler),
 ], debug=True)

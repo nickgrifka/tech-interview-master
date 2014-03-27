@@ -8,16 +8,16 @@
 <div id="shadow">
 </div>
 
-<div id="post_form">
-   <form method="post" action="/contributions/post">
+<div id="post_form_div">
+   <form id="post_form" method="post" action="/contributions/post" onsubmit="submitQuestionForm()"> <!-- method="post" action="/contributions/post" -->
       <!-- Title input -->
       Question Title:
-      <input type="text" name="question_title">
+      <input type="text" id="question_title" name="question_title">
       <br/>
 
       <!-- Content input -->
       Question Content:
-      <input type="text" name="question_content">
+      <input type="text" id="question_content" name="question_content">
       <br/>
 
       <!-- Tag input -->

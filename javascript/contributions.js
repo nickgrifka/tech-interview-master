@@ -1,6 +1,5 @@
 // Globals
 var TAGS = ['hash tables', 'binary trees', 'trees', 'arrays', 'queues', 'stacks'];
-var numTagSearchResults = 0;
 MAX_TAG_SEARCH_RESULTS = 5;
 var oldInput = '';
 
@@ -8,7 +7,7 @@ var oldInput = '';
 function showPostBox()
 {
    document.getElementById('shadow').style.display = 'block';
-   document.getElementById('post_form').style.display = 'block';
+   document.getElementById('post_form_div').style.display = 'block';
    // Refresh the tags
    TAGS = ['hash tables', 'binary trees', 'trees', 'arrays', 'queues', 'stacks'];
 }
@@ -16,13 +15,15 @@ function showPostBox()
 function closePostBox()
 {
    document.getElementById('shadow').style.display = 'none';
-   document.getElementById('post_form').style.display = 'none';
+   document.getElementById('post_form_div').style.display = 'none';
    clearPostForm();
 }
 
 function clearPostForm()
 {
    clearTagSuggestions();
+   document.getElementById('question_title').value = '';
+   document.getElementById('question_content').value = '';
    document.getElementById('question_tags').innerHTML = '';
    TAGS = ['hash tables', 'binary trees', 'trees', 'arrays', 'queues', 'stacks'];
 }
@@ -46,6 +47,8 @@ document.getElementById('search_results').addEventListener('click', function(e) 
 });
 
 
+// Gather tag search input
+setInterval(function() {tagSearch()}, 50);
 
 function tagSearch()
 {
@@ -64,20 +67,52 @@ function tagSearch()
          return true;
       }
 
+      var numResults = 0;
       for (var i = 0; i < TAGS.length; i++)
       {
-         if (TAGS[i].indexOf(input) != -1 && numTagSearchResults < MAX_TAG_SEARCH_RESULTS)
+         if (TAGS[i].indexOf(input) != -1 && numResults < MAX_TAG_SEARCH_RESULTS)
          {
             console.log('match with: ' + TAGS[i]+ '\n');
             var table = document.getElementById('search_results');
             var newRow = table.insertRow(0);
             var newCell = newRow.insertCell(0);
             newCell.innerHTML = TAGS[i];
+            numResults++;
          }
       }
    }
    oldInput = input;
 }
 
-// Gather tag search input
-setInterval(function() {tagSearch()}, 50);
+function submitQuestionForm()
+{
+   tags = grabQuestionTags();
+
+   var tagInput = document.createElement("input");
+   tagInput.setAttribute("type", "hidden");
+   tagInput.setAttribute("name", "tags");
+   tagInput.setAttribute("value", tags);
+   var form = document.getElementById("post_form")
+   form.appendChild(tagInput);
+alert('alb');
+   // form.submit();
+}
+
+
+function grabQuestionTags()
+{
+   var tags = [];
+   var list = document.getElementById('question_tags');
+   var items = list.getElementsByTagName('li');
+   for (var i = 0; i < items.length; i++)
+   {
+      tags.push(items[i].innerHTML);
+   }
+
+   for (var i = 0; i < tags.length; i++)
+   {
+      console.log(tags[i]);
+   }
+
+   return tags;
+}
