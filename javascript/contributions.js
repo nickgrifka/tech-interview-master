@@ -35,20 +35,19 @@ function clearTagSuggestions()
 }
 
 
-document.getElementById('search_results').addEventListener('click', function(e) {
-   var newNode = document.createElement('li');
-   var textNode = document.createTextNode(e.target.innerHTML);
-   newNode.appendChild(textNode);
-   document.getElementById('question_tags').appendChild(newNode);
+// document.getElementById('search_results').addEventListener('click', function(e) {
+//    var newNode = document.createElement('li');
+//    var textNode = document.createTextNode(e.target.innerHTML);
+//    newNode.appendChild(textNode);
+//    document.getElementById('question_tags').appendChild(newNode);
 
-   // Remove the tag so it can not be selected again
-   TAGS.splice(TAGS.indexOf(e.target.innerHTML), 1);
-   clearTagSuggestions();
-});
+//    // Remove the tag so it can not be selected again
+//    TAGS.splice(TAGS.indexOf(e.target.innerHTML), 1);
+//    clearTagSuggestions();
+// });
 
 
-// Gather tag search input
-setInterval(function() {tagSearch()}, 50);
+
 
 function tagSearch()
 {
@@ -94,7 +93,6 @@ function submitQuestionForm()
    tagInput.setAttribute("value", tags);
    var form = document.getElementById("post_form")
    form.appendChild(tagInput);
-alert('alb');
    // form.submit();
 }
 
@@ -116,3 +114,33 @@ function grabQuestionTags()
 
    return tags;
 }
+
+
+function loadUserPosts()
+{
+   // TODO
+}
+
+
+function main()
+{
+   // Gather tag search input
+   setInterval(function() {tagSearch()}, 50);
+
+   // Load the user's posts
+   loadUserPosts();
+
+   // Set on click listener for the tag results
+   document.getElementById('search_results').addEventListener('click', function(e) {
+      alert("her");
+      var newNode = document.createElement('li');
+      var textNode = document.createTextNode(e.target.innerHTML);
+      newNode.appendChild(textNode);
+      document.getElementById('question_tags').appendChild(newNode);
+
+      // Remove the tag so it can not be selected again
+      TAGS.splice(TAGS.indexOf(e.target.innerHTML), 1);
+      clearTagSuggestions();
+   });
+}
+$(document).ready(main);

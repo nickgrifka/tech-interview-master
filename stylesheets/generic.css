@@ -30,6 +30,10 @@ a {
    border: 1px solid black;
 }
 
+.subtitle {
+   font-size: 20px;
+}
+
 .footer {
    width: 1198px;
    height: 200px;

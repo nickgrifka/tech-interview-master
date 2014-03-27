@@ -94,20 +94,20 @@ class PostHandler(webapp2.RequestHandler):
                             authenticity=0,
                             tags=self.request.get_all('tags'))
         question.put()
-        # self.redirect('/');
+        self.redirect('/');
 
         # Test page
-        template_values = {
-            'author': question.author,
-            'question_title': question.question_title,
-            'question_content': question.question_content,
-            'views': question.views,
-            'authenticity': question.authenticity,
-            'tags': question.tags,
-        }
+        # template_values = {
+        #     'author': question.author,
+        #     'question_title': question.question_title,
+        #     'question_content': question.question_content,
+        #     'views': question.views,
+        #     'authenticity': question.authenticity,
+        #     'tags': question.tags,
+        # }
 
-        template = JINJA_ENVIRONMENT.get_template('testDb.html')
-        self.response.write(template.render(template_values))
+        # template = JINJA_ENVIRONMENT.get_template('testDb.html')
+        # self.response.write(template.render(template_values))
 
 class TestDbHandler(webapp2.RequestHandler):
 
