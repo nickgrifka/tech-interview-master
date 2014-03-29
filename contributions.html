@@ -49,7 +49,7 @@
 
       <div class="header">
          <a href="/">
-            header
+            Tech-Interview-Master
          </a>
          <div id="userName">
             hello {{user_name}}
@@ -64,8 +64,20 @@
          Your Contributions
       </div>
 
-      <ul id="userContributions">
+      <ul class="questionList" id="userContributions">
          <!-- list gets filled with the users posts -->
+         {% for q in questions %}
+         <li class="questionListItem">
+            <div class="questionListDiv">
+               <div class="questionListTitle">{{q.question_title}}</div>
+               <div class="questionListPreview">{{q.question_content}}</div>
+            </div>
+
+            <div class="hiddenQuestionInfo">
+               {{q.key}}
+            </div>
+         </li>
+         {% endfor %}
       </ul>
 
       <div class="footer">

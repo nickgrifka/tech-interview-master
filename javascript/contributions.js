@@ -35,20 +35,6 @@ function clearTagSuggestions()
 }
 
 
-// document.getElementById('search_results').addEventListener('click', function(e) {
-//    var newNode = document.createElement('li');
-//    var textNode = document.createTextNode(e.target.innerHTML);
-//    newNode.appendChild(textNode);
-//    document.getElementById('question_tags').appendChild(newNode);
-
-//    // Remove the tag so it can not be selected again
-//    TAGS.splice(TAGS.indexOf(e.target.innerHTML), 1);
-//    clearTagSuggestions();
-// });
-
-
-
-
 function tagSearch()
 {
    var input = document.getElementById('tag_search').value;
@@ -107,18 +93,7 @@ function grabQuestionTags()
       tags.push(items[i].innerHTML);
    }
 
-   for (var i = 0; i < tags.length; i++)
-   {
-      console.log(tags[i]);
-   }
-
    return tags;
-}
-
-
-function loadUserPosts()
-{
-   // TODO
 }
 
 
@@ -127,12 +102,8 @@ function main()
    // Gather tag search input
    setInterval(function() {tagSearch()}, 50);
 
-   // Load the user's posts
-   loadUserPosts();
-
    // Set on click listener for the tag results
    document.getElementById('search_results').addEventListener('click', function(e) {
-      alert("her");
       var newNode = document.createElement('li');
       var textNode = document.createTextNode(e.target.innerHTML);
       newNode.appendChild(textNode);
@@ -143,4 +114,5 @@ function main()
       clearTagSuggestions();
    });
 }
+
 $(document).ready(main);

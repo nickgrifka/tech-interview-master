@@ -15,3 +15,14 @@ indexes:
   properties:
   - name: date
     direction: desc
+
+- kind: Question
+  properties:
+  - name: author
+  - name: timestamp
+
+- kind: Question
+  properties:
+  - name: author
+  - name: timestamp
+    direction: desc

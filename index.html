@@ -3,22 +3,23 @@
 <head>
 <link rel="stylesheet" type="text/css" href="/css/generic.css">
 <link rel="stylesheet" type="text/css" href="/css/index.css">
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 </head>
 
 <body>
    <div class="container">
 
       <div class="header">
-         header
+         Tech-Interview-Master
          <div id="userName">
             hello {{user_name}}
          </div>
          <br>
-         <button id="post_button">
-            <a href="/contributions">
+         <a href="/contributions">
+            <button id="post_button">
                Post
-            </a>
-         </button>
+            </button>
+         </a>
       </div>
 
       <div class="search">
@@ -27,18 +28,44 @@
       </div>
 
       <div class="content">
-         content<br>content
+         <ul class="questionList" id="userContributions">
+         <!-- list gets filled with the users posts -->
+            {% for q in questions %}
+            <li class="questionListItem">
+               <div class="questionListDiv">
+                  <div class="questionListTitle">{{q.question_title}}</div>
+                  <div class="questionListPreview">{{q.question_content}}</div>
+               </div>
+
+               <div class="hiddenQuestionInfo">
+                  {{q.key.urlsafe()}}
+               </div>
+
+            </li>
+            {% endfor %}
+         </ul>
       </div>
 
       <div class="sideBox">
          sidebox
       </div>
 
+      <div class="question_viewer">
+         <div class="viewer_title">{{current_question.question_title}}</div>
+         <div class="viewer_views">{{current_question.views}}</div>
+         <div class="viewer_content">{{current_question.question_content}}</div>
+         <div class="viewer_metadata">
+            <div class="viewer_publishinfo"></div> 
+            <div class="viewer_tags"></div>
+         </div>
+      </div>
+
       <div class="footer">
-         footer
+         {{debug}}
       </div>
 
    </div>
 </body>
 
+<script src="/js/questionLink.js"></script>
 </html>

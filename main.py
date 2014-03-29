@@ -39,6 +39,12 @@ class Question(ndb.Model):
 def getUser(usr):
     return UserAccount.query().filter(UserAccount.user==usr).get()
 
+def trimContent(questions):
+    for q in questions:
+        if len(q.question_content) > 62:
+            q.question_content = q.question_content[:62] + ' ...'
+    return questions
+
 
 class MainPageHandler(webapp2.RequestHandler):
 
@@ -53,8 +59,23 @@ class MainPageHandler(webapp2.RequestHandler):
         else:
             user_name = 'random user'
 
+        questions = Question.query().order(-Question.timestamp)
+        questions = trimContent(questions)
+
+        questionKeyString = self.request.get('question')
+        if questionKeyString == None or questionKeyString == '':
+            debug = 'key is null'
+        else:
+            debug = questionKeyString
+            currentQuestionKey = ndb.Key(urlsafe=questionKeyString)
+            currentQuestion = Question.query(Question.key == currentQuestionKey)
+
+
         template_values = {
-            'user_name': user_name
+            'user_name': user_name,
+            'questions': questions,
+            'current_question': currentQuestion,
+            'debug': debug
         }
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render(template_values))
@@ -68,16 +89,18 @@ class ContributionsPageHandler(webapp2.RequestHandler):
             self.redirect(users.create_login_url(self.request.uri))
         else:
             # Add the user if he/she is not already in the db
-            if not getUser(user):
+            userAccount = getUser(user)
+            if not userAccount:
                 userAccount = UserAccount(user=user)
                 userAccount.put()
 
-            template_values = {}
             # Fetch the user's previous posts
-            # TODO
+            questions = Question.query(Question.author==userAccount.key).order(-Question.timestamp) #.filter().get()
+            questions = trimContent(questions)
 
             template_values = {
-                'user_name': user.nickname()
+                'user_name': user.nickname(),
+                'questions': questions,
             }
             template = JINJA_ENVIRONMENT.get_template('contributions.html')
             self.response.write(template.render(template_values))
@@ -94,7 +117,7 @@ class PostHandler(webapp2.RequestHandler):
                             authenticity=0,
                             tags=self.request.get_all('tags'))
         question.put()
-        self.redirect('/');
+        self.redirect('/contributions');
 
         # Test page
         # template_values = {

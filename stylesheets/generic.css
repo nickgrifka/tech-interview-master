@@ -2,7 +2,7 @@ body {
    /*margin: 0px;*/
    font-family: Verdana, Helvetica, sans-serif;
    background-image: url('/img/squared_metal.png');
-   /*display: block;*/
+   display: block;
 }
 
 a {
@@ -11,9 +11,6 @@ a {
 }
 
 .container {
-   /*position: relative;*/
-   /*margin-right: 50%;*/
-   /*margin-left: 50%;*/
    width: 1200px;
    height: auto;
    margin: 0 auto;
@@ -25,21 +22,66 @@ a {
 .header {
    width: 1198px;
    height: 150px;
-   font-size: 32px;
+   font-size: 48px;
 
    border: 1px solid black;
 }
 
 .subtitle {
-   font-size: 20px;
+   font-size: 32px;
 }
 
 .footer {
    width: 1198px;
    height: 200px;
    font-size: 12px;
-
+   float: left;
+   /*margin-top: 50px;
+   margin-bottom: 0px;*/
    border: 1px solid black;
+}
+
+.question_viewer {
+   width: 1198px;
+   height: auto;
+   float: left;
+   border: 1px solid black;
+}
+
+.questionList {
+   width: 598px;
+   max-height: 400px;
+   overflow: scroll;
+   list-style-type: none;
+   padding-left: 0px;
+   border: 1px solid orange;
+}
+
+.questionListDiv {
+   border-left: 1px solid gray;
+   border-right: 1px solid gray;
+   border-top: 1px solid gray;
+}
+
+.questionListDiv:hover {
+   background-color: gray;
+   cursor: default;
+}
+
+.questionListTitle {
+   font-size: 20px;
+   padding-left: 15px;
+}
+
+.questionListPreview {
+   font-size: 14px;
+   font-family: courier;
+   font-style: italic;
+   padding-left: 30px;
+}
+
+.hiddenQuestionInfo {
+   display: none;
 }
 
 #userName {
