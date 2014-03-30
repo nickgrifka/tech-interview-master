@@ -44,6 +44,7 @@ a {
 .question_viewer {
    width: 1198px;
    height: auto;
+   background-color: green;
    float: left;
    border: 1px solid black;
 }

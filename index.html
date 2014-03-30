@@ -33,13 +33,11 @@
             {% for q in questions %}
             <li class="questionListItem">
                <div class="questionListDiv">
-                  <div class="questionListTitle">{{q.question_title}}</div>
-                  <div class="questionListPreview">{{q.question_content}}</div>
+                  <div class="questionListTitle">{{q.model.question_title}}</div>
+                  <div class="questionListPreview">{{q.model.question_content}}</div>
                </div>
 
-               <div class="hiddenQuestionInfo">
-                  {{q.key.urlsafe()}}
-               </div>
+               <div class="hiddenQuestionInfo">{{q.key_string}}</div>
 
             </li>
             {% endfor %}
@@ -50,6 +48,7 @@
          sidebox
       </div>
 
+      {% if has_question_view %}
       <div class="question_viewer">
          <div class="viewer_title">{{current_question.question_title}}</div>
          <div class="viewer_views">{{current_question.views}}</div>
@@ -59,10 +58,9 @@
             <div class="viewer_tags"></div>
          </div>
       </div>
+      {% endif %}
 
-      <div class="footer">
-         {{debug}}
-      </div>
+      <div class="footer">{{debug}}</div>
 
    </div>
 </body>

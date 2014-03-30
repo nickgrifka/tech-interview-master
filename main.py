@@ -41,9 +41,30 @@ def getUser(usr):
 
 def trimContent(questions):
     for q in questions:
-        if len(q.question_content) > 62:
-            q.question_content = q.question_content[:62] + ' ...'
+        if len(q['model'].question_content) > 62:
+            q['model'].question_content = q['model'].question_content[:62] + ' ...'
     return questions
+
+def copy(question_list):
+    copy = []
+    for a in question_list:
+        # Form the question model contents
+        b = Question()
+        b.question_title = a.question_title
+        b.question_content = a.question_content
+        b.author = a.author
+        b.views = a.views
+        b.tags = a.tags
+        b.authenticity = a.authenticity
+        b.timestamp = a.timestamp
+
+        # Combine the model contents with its key string
+        new_question = {'model': b, 'key_string': a.key.urlsafe()}
+
+        # add to list
+        copy.append(new_question)
+    return copy
+
 
 
 class MainPageHandler(webapp2.RequestHandler):
@@ -59,23 +80,26 @@ class MainPageHandler(webapp2.RequestHandler):
         else:
             user_name = 'random user'
 
-        questions = Question.query().order(-Question.timestamp)
+        tmp = Question.query().order(-Question.timestamp)
+        questions = copy(tmp)
         questions = trimContent(questions)
 
-        questionKeyString = self.request.get('question')
-        if questionKeyString == None or questionKeyString == '':
-            debug = 'key is null'
-        else:
-            debug = questionKeyString
-            currentQuestionKey = ndb.Key(urlsafe=questionKeyString)
-            currentQuestion = Question.query(Question.key == currentQuestionKey)
+        # Grabs the specified question info if 'question' parameter is in the url
+        has_question_view = False
+        question_obj = None
+        question_key_string = self.request.get('question')
+        if question_key_string != None and question_key_string != '':
+            question_obj = ndb.Key(urlsafe=question_key_string).get()
+            has_question_view = True
 
+        # temp_list = Question.query(Question.question_title == 'Chess')
 
         template_values = {
             'user_name': user_name,
             'questions': questions,
-            'current_question': currentQuestion,
-            'debug': debug
+            'has_question_view': has_question_view,
+            'current_question': question_obj,
+            'debug': question_key_string,
         }
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render(template_values))
