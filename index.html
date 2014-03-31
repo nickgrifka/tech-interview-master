@@ -27,14 +27,14 @@
          <input id="search" type="text" name="search">
       </div>
 
-      <div class="content">
+      <!-- <div class="content"> -->
          <ul class="questionList" id="userContributions">
          <!-- list gets filled with the users posts -->
             {% for q in questions %}
             <li class="questionListItem">
                <div class="questionListDiv">
-                  <div class="questionListTitle">{{q.model.question_title}}</div>
-                  <div class="questionListPreview">{{q.model.question_content}}</div>
+                  <div class="questionListTitle">{{q.question_title}}</div>
+                  <div class="questionListPreview">{{q.question_content}}</div>
                </div>
 
                <div class="hiddenQuestionInfo">{{q.key_string}}</div>
@@ -42,19 +42,19 @@
             </li>
             {% endfor %}
          </ul>
-      </div>
-
-      <div class="sideBox">
-         sidebox
-      </div>
+      <!-- </div> -->
 
       {% if has_question_view %}
       <div class="question_viewer">
-         <div class="viewer_title">{{current_question.question_title}}</div>
-         <div class="viewer_views">{{current_question.views}}</div>
+         <div class="viewer_header">
+            <div class="viewer_title">{{current_question.question_title}}</div>
+            <div class="viewer_views">{{current_question.views}} views</div>
+         </div>
+         <hr>
          <div class="viewer_content">{{current_question.question_content}}</div>
          <div class="viewer_metadata">
-            <div class="viewer_publishinfo"></div> 
+            <div class="viewer_publishinfo">Posted by {{current_question.author_nickname}}
+                                            at {{current_question.formatted_timestamp}}</div> 
             <div class="viewer_tags"></div>
          </div>
       </div>

@@ -73,12 +73,14 @@
                <div class="questionListPreview">{{q.question_content}}</div>
             </div>
 
-            <div class="hiddenQuestionInfo">
-               {{q.key}}
-            </div>
+            <div class="hiddenQuestionInfo">{{q.key_string}}</div>
          </li>
          {% endfor %}
       </ul>
+
+      <div>
+         Stats page???
+      </div>
 
       <div class="footer">
          footer
@@ -88,4 +90,5 @@
 </body>
 
 <script src="/js/contributions.js"></script>
+<script src="/js/questionLink.js"></script>
 </html>

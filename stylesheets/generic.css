@@ -21,7 +21,7 @@ a {
 
 .header {
    width: 1198px;
-   height: 150px;
+   height: 130px;
    font-size: 48px;
 
    border: 1px solid black;
@@ -36,25 +36,17 @@ a {
    height: 200px;
    font-size: 12px;
    float: left;
-   /*margin-top: 50px;
-   margin-bottom: 0px;*/
-   border: 1px solid black;
-}
-
-.question_viewer {
-   width: 1198px;
-   height: auto;
-   background-color: green;
-   float: left;
    border: 1px solid black;
 }
 
 .questionList {
-   width: 598px;
+   width: 398px;
    max-height: 400px;
    overflow: scroll;
+   float: left;
    list-style-type: none;
    padding-left: 0px;
+   margin-top: 0px;
    border: 1px solid orange;
 }
 

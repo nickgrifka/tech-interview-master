@@ -16,12 +16,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 # jinja_environment = jinja2.Environment(loader=
 #     jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
-# class Greeting(ndb.Model):
-#     """Models an individual Guestbook entry with author, content, and date."""
-#     author = ndb.UserProperty()
-#     content = ndb.StringProperty(indexed=False)
-#     date = ndb.DateTimeProperty(auto_now_add=True)
-
 
 class UserAccount(ndb.Model):
     user = ndb.UserProperty()
@@ -35,36 +29,39 @@ class Question(ndb.Model):
     tags = ndb.StringProperty(repeated=True)
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
 
+class UserFriendlyQuestion():
+    question_title = ''
+    question_content = ''
+    author_nickname = ''
+    views = 0
+    authenticity = 0
+    formatted_timestamp = ''
+    key_string = ''
+
+    def __init__(self, ndb_question):
+        self.question_title = ndb_question.question_title
+        self.question_content = ndb_question.question_content
+        self.author_nickname = ndb_question.author.get().user.nickname()
+        self.views = ndb_question.views
+        self.authenticity = ndb_question.authenticity
+        self.formatted_timestamp = ndb_question.timestamp.strftime('%b %d, \'%y')
+        self.key_string = ndb_question.key.urlsafe()
+
+def UserFriendlyQuestionList(ndb_question_list):
+    user_friendly_question_list = []
+    for q in ndb_question_list:
+        user_friendly_question_list.append(UserFriendlyQuestion(q))
+    return user_friendly_question_list
+
 
 def getUser(usr):
     return UserAccount.query().filter(UserAccount.user==usr).get()
 
 def trimContent(questions):
     for q in questions:
-        if len(q['model'].question_content) > 62:
-            q['model'].question_content = q['model'].question_content[:62] + ' ...'
+        if len(q.question_content) > 62:
+            q.question_content = q.question_content[:62] + ' ...'
     return questions
-
-def copy(question_list):
-    copy = []
-    for a in question_list:
-        # Form the question model contents
-        b = Question()
-        b.question_title = a.question_title
-        b.question_content = a.question_content
-        b.author = a.author
-        b.views = a.views
-        b.tags = a.tags
-        b.authenticity = a.authenticity
-        b.timestamp = a.timestamp
-
-        # Combine the model contents with its key string
-        new_question = {'model': b, 'key_string': a.key.urlsafe()}
-
-        # add to list
-        copy.append(new_question)
-    return copy
-
 
 
 class MainPageHandler(webapp2.RequestHandler):
@@ -81,24 +78,24 @@ class MainPageHandler(webapp2.RequestHandler):
             user_name = 'random user'
 
         tmp = Question.query().order(-Question.timestamp)
-        questions = copy(tmp)
-        questions = trimContent(questions)
+        user_friendly_questions = UserFriendlyQuestionList(tmp)
+        user_friendly_questions = trimContent(user_friendly_questions)
 
         # Grabs the specified question info if 'question' parameter is in the url
         has_question_view = False
         question_obj = None
+        user_friendly_question = None
         question_key_string = self.request.get('question')
         if question_key_string != None and question_key_string != '':
             question_obj = ndb.Key(urlsafe=question_key_string).get()
+            user_friendly_question = UserFriendlyQuestion(question_obj)
             has_question_view = True
-
-        # temp_list = Question.query(Question.question_title == 'Chess')
 
         template_values = {
             'user_name': user_name,
-            'questions': questions,
+            'questions': user_friendly_questions,
             'has_question_view': has_question_view,
-            'current_question': question_obj,
+            'current_question': user_friendly_question,
             'debug': question_key_string,
         }
         template = JINJA_ENVIRONMENT.get_template('index.html')
@@ -119,12 +116,13 @@ class ContributionsPageHandler(webapp2.RequestHandler):
                 userAccount.put()
 
             # Fetch the user's previous posts
-            questions = Question.query(Question.author==userAccount.key).order(-Question.timestamp) #.filter().get()
-            questions = trimContent(questions)
+            tmp = Question.query(Question.author==userAccount.key).order(-Question.timestamp)
+            user_friendly_questions = UserFriendlyQuestionList(tmp)
+            user_friendly_questions = trimContent(user_friendly_questions)
 
             template_values = {
                 'user_name': user.nickname(),
-                'questions': questions,
+                'questions': user_friendly_questions,
             }
             template = JINJA_ENVIRONMENT.get_template('contributions.html')
             self.response.write(template.render(template_values))

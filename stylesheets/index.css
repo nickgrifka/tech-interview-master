@@ -1,6 +1,6 @@
 .search {
    width: 1198px;
-   height: 100px;
+   height: 60px;
 
    border: 1px solid black;
 }
@@ -18,3 +18,56 @@
    float: left;
    border: 1px solid black;
 }
+
+.question_viewer {
+   width: 798px;
+   height: auto;
+   background-color: green;
+   float: left;
+
+   border: 1px solid yellow;
+}
+
+.viewer_header {
+   width: 788px;
+   height: 75px;
+
+   border: 1px solid blue;
+}
+
+.viewer_title {
+   width: 500px;
+   font-size: 36px;
+   padding: 15px;
+   float: left;
+
+   border: 1px solid black;
+}
+
+.viewer_views {
+   width: 200px;
+   font-size: 36px;
+   padding: 15px;
+   float: right;
+   text-align: right;
+
+   border: 1px solid black;
+}
+
+.viewer_content {
+   font-size: 24px;
+   padding: 15px;
+   float: left;
+
+   border: 1px solid black;
+}
+/*<div class="question_viewer">
+         <div class="viewer_title">{{current_question.question_title}}</div>
+         <div class="viewer_views">{{current_question.views}} views</div>
+         <hr/>
+         <div class="viewer_content">{{current_question.question_content}}</div>
+         <div class="viewer_metadata">
+            <div class="viewer_publishinfo"></div> 
+            <div class="viewer_tags"></div>
+         </div>
+      </div>*/
