@@ -7,6 +7,11 @@ function main()
       // alert(keyString);
       // keyString = keyString.replace(/\s+/g, '');
       // alert(keyString);
+      var tag_list = document.getElementById('viewer_tag_list');
+      if (tag_list != null)
+      {
+         tag_list.innerHTML = '';
+      }
       window.location = '/?question=' + keyString;
    });
 }

@@ -29,6 +29,7 @@ class Question(ndb.Model):
     tags = ndb.StringProperty(repeated=True)
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
 
+# WARNING!! The code uses the same instance for everything! accumulates tags!
 class UserFriendlyQuestion():
     question_title = ''
     question_content = ''
@@ -36,6 +37,7 @@ class UserFriendlyQuestion():
     views = 0
     authenticity = 0
     formatted_timestamp = ''
+    tags = []
     key_string = ''
 
     def __init__(self, ndb_question):
@@ -46,6 +48,10 @@ class UserFriendlyQuestion():
         self.authenticity = ndb_question.authenticity
         self.formatted_timestamp = ndb_question.timestamp.strftime('%b %d, \'%y')
         self.key_string = ndb_question.key.urlsafe()
+        self.tags = []
+        temp_tag_list = str(ndb_question.tags[0]).split(',')
+        for t in temp_tag_list:
+            self.tags.append(t)
 
 def UserFriendlyQuestionList(ndb_question_list):
     user_friendly_question_list = []
@@ -81,6 +87,9 @@ class MainPageHandler(webapp2.RequestHandler):
         user_friendly_questions = UserFriendlyQuestionList(tmp)
         user_friendly_questions = trimContent(user_friendly_questions)
 
+        debug1 = ''
+        debug2 = 'debug2|'
+
         # Grabs the specified question info if 'question' parameter is in the url
         has_question_view = False
         question_obj = None
@@ -88,6 +97,12 @@ class MainPageHandler(webapp2.RequestHandler):
         question_key_string = self.request.get('question')
         if question_key_string != None and question_key_string != '':
             question_obj = ndb.Key(urlsafe=question_key_string).get()
+
+            # Increment the view count
+            question_obj.views = question_obj.views + 1
+            question_obj.put()
+
+            # Grab a more user friendly version of the data
             user_friendly_question = UserFriendlyQuestion(question_obj)
             has_question_view = True
 
@@ -96,7 +111,8 @@ class MainPageHandler(webapp2.RequestHandler):
             'questions': user_friendly_questions,
             'has_question_view': has_question_view,
             'current_question': user_friendly_question,
-            'debug': question_key_string,
+            'debug1': debug1,
+            'debug2': debug2,
         }
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render(template_values))
@@ -131,6 +147,9 @@ class ContributionsPageHandler(webapp2.RequestHandler):
 class PostHandler(webapp2.RequestHandler):
 
     def post(self):
+        # tag_string = 
+        # tags = tag_string.split()
+        
         user = users.get_current_user()
         question = Question(author=getUser(user).key,
                             question_title=self.request.get('question_title'),

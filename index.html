@@ -55,12 +55,20 @@
          <div class="viewer_metadata">
             <div class="viewer_publishinfo">Posted by {{current_question.author_nickname}}
                                             at {{current_question.formatted_timestamp}}</div> 
-            <div class="viewer_tags"></div>
+            <div class="viewer_tags">
+               <ul class="viewer_tag_list" id="viewer_tag_list">
+                  <!-- list gets filled with the current questions tags -->
+                  {% for tag in current_question.tags %}
+                  <li>{{tag}}</li>
+                  {% endfor %}
+               </ul>
+            </div>
          </div>
       </div>
       {% endif %}
 
-      <div class="footer">{{debug}}</div>
+      <div class="footer">{{debug1}}</div>
+      <!-- <div>{{debug2}}</div> -->
 
    </div>
 </body>
