@@ -1,5 +1,6 @@
 import os
 import urllib
+import ast
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -26,8 +27,8 @@ class Question(ndb.Model):
     question_content = ndb.StringProperty()
     views = ndb.IntegerProperty()
     authenticity = ndb.IntegerProperty()
-    up_votes = ndb.KeyProperty(repeated=True)
-    down_votes = ndb.KeyProperty(repeated=True)
+    up_votes = ndb.KeyProperty(UserAccount, repeated=True)
+    down_votes = ndb.KeyProperty(UserAccount, repeated=True)
     tags = ndb.StringProperty(repeated=True)
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
 
@@ -84,6 +85,25 @@ def has_user_voted(ndb_user, ndb_question):
 class MainPageHandler(webapp2.RequestHandler):
 
     def get(self):
+        self.loadPage("from get")
+
+    def post(self):
+        vote_data_string = self.request.get('vote_data')
+        ndb_q = None
+        if vote_data_string:
+            vote_data = ast.literal_eval(vote_data_string)
+            user_key = getUser(users.get_current_user()).key
+            for q_key in vote_data['up_votes']:
+                ndb_q = ndb.Key(urlsafe=q_key).get()
+                ndb_q.up_votes.append(user_key)
+            for q_key in vote_data['down_votes']:
+                ndb_q = ndb.Key(urlsafe=q_key).get()
+                ndb_q.down_votes.append(user_key)
+        if ndb_q:
+            ndb_q.put()
+        self.loadPage("from post")
+
+    def loadPage(self, debugParam):
         template_values = {}
 
         # Grab the users name to display
@@ -130,7 +150,7 @@ class MainPageHandler(webapp2.RequestHandler):
             'current_question': user_friendly_question,
             'user_has_voted': user_has_voted,
             'debug1': debug1,
-            'debug2': debug2,
+            'debug2': debugParam,
         }
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render(template_values))

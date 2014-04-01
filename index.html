@@ -73,14 +73,23 @@
             {% endif %}
          {% endif %}
 
+         <div class="hiddenQuestionInfo">{{current_question.key_string}}</div>
+
       </div>
       {% endif %}
 
       <div class="footer">{{debug1}}</div>
-      <!-- <div>{{debug2}}</div> -->
+      <div>{{debug2}}</div>
 
    </div>
+
+   <form id="hidden_vote_form" name="hidden_vote_form" action="/" method="post" style="">
+      <input id="vote_data" type="hidden" name="vote_data" value="">
+      <input type="submit" id="btnVote">
+   </form>
+
 </body>
 
 <script src="/js/questionLink.js"></script>
+<script src="/js/index.js"></script>
 </html>
