@@ -14,6 +14,22 @@ function main()
       }
       window.location = '/?question=' + keyString;
    });
+
+   document.getElementById('viewer_vote').addEventListener('click', function(e) {
+      // Determine up or down
+      if (e.target.className == 'up_vote')
+      {
+         alert('up_vote!');
+         // Do something
+      }
+      else
+      {
+         alert('down_vote!');
+         // Do something
+      }
+      // Make the vote box dissapear
+      e.target.parentNode.style.display = 'none';
+   });
 }
 
 $(document).ready(main);

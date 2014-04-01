@@ -61,6 +61,13 @@
 
    border: 1px solid black;
 }
+
+.viewer_vote {
+   width: 50px;
+   height: 50px;
+
+   border: 1px solid black;
+}
 /*<div class="question_viewer">
          <div class="viewer_title">{{current_question.question_title}}</div>
          <div class="viewer_views">{{current_question.views}} views</div>

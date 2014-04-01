@@ -26,6 +26,8 @@ class Question(ndb.Model):
     question_content = ndb.StringProperty()
     views = ndb.IntegerProperty()
     authenticity = ndb.IntegerProperty()
+    up_votes = ndb.KeyProperty(repeated=True)
+    down_votes = ndb.KeyProperty(repeated=True)
     tags = ndb.StringProperty(repeated=True)
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
 
@@ -69,6 +71,15 @@ def trimContent(questions):
             q.question_content = q.question_content[:62] + ' ...'
     return questions
 
+def has_user_voted(ndb_user, ndb_question):
+    for up in ndb_question.up_votes:
+        if up == ndb_user.key:
+            return True
+    for down in ndb_question.down_votes:
+        if down == ndb_user.key:
+            return True
+    return False
+
 
 class MainPageHandler(webapp2.RequestHandler):
 
@@ -91,6 +102,7 @@ class MainPageHandler(webapp2.RequestHandler):
         debug2 = 'debug2|'
 
         # Grabs the specified question info if 'question' parameter is in the url
+        user_has_voted = False
         has_question_view = False
         question_obj = None
         user_friendly_question = None
@@ -106,11 +118,17 @@ class MainPageHandler(webapp2.RequestHandler):
             user_friendly_question = UserFriendlyQuestion(question_obj)
             has_question_view = True
 
+            # Find out if user has voted on this question
+            if user:
+                user_has_voted = has_user_voted(getUser(user), question_obj)
+
+
         template_values = {
             'user_name': user_name,
             'questions': user_friendly_questions,
             'has_question_view': has_question_view,
             'current_question': user_friendly_question,
+            'user_has_voted': user_has_voted,
             'debug1': debug1,
             'debug2': debug2,
         }

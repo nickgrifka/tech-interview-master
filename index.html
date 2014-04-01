@@ -64,6 +64,15 @@
                </ul>
             </div>
          </div>
+         {% if user_name != "random user" %}
+            {% if not user_has_voted %}
+            <div id="viewer_vote">
+               <div class="up_vote">up</div>
+               <div class="down_vote">down</div>
+            </div>
+            {% endif %}
+         {% endif %}
+
       </div>
       {% endif %}
 
