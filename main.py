@@ -26,7 +26,6 @@ class Question(ndb.Model):
     question_title = ndb.StringProperty()
     question_content = ndb.StringProperty()
     views = ndb.IntegerProperty()
-    authenticity = ndb.IntegerProperty()
     up_votes = ndb.KeyProperty(UserAccount, repeated=True)
     down_votes = ndb.KeyProperty(UserAccount, repeated=True)
     tags = ndb.StringProperty(repeated=True)
@@ -38,7 +37,6 @@ class UserFriendlyQuestion():
     question_content = ''
     author_nickname = ''
     views = 0
-    authenticity = 0
     formatted_timestamp = ''
     tags = []
     key_string = ''
@@ -48,7 +46,6 @@ class UserFriendlyQuestion():
         self.question_content = ndb_question.question_content
         self.author_nickname = ndb_question.author.get().user.nickname()
         self.views = ndb_question.views
-        self.authenticity = ndb_question.authenticity
         self.formatted_timestamp = ndb_question.timestamp.strftime('%b %d, \'%y')
         self.key_string = ndb_question.key.urlsafe()
         self.tags = []
@@ -85,23 +82,28 @@ def has_user_voted(ndb_user, ndb_question):
 class MainPageHandler(webapp2.RequestHandler):
 
     def get(self):
+        # self.response.write('message from get')
         self.loadPage("from get")
 
     def post(self):
-        vote_data_string = self.request.get('vote_data')
+        vote_data_string = self.request.body
         ndb_q = None
         if vote_data_string:
             vote_data = ast.literal_eval(vote_data_string)
             user_key = getUser(users.get_current_user()).key
-            for q_key in vote_data['up_votes']:
-                ndb_q = ndb.Key(urlsafe=q_key).get()
+            ndb_q = ndb.Key(urlsafe=str(vote_data['question_key'])).get()
+     
+            if vote_data['vote_status'] == 'up':
                 ndb_q.up_votes.append(user_key)
-            for q_key in vote_data['down_votes']:
-                ndb_q = ndb.Key(urlsafe=q_key).get()
+            elif vote_data['vote_status'] == 'down':
                 ndb_q.down_votes.append(user_key)
+            else:
+                self.response.write('vote status neither up or down')
+
         if ndb_q:
             ndb_q.put()
-        self.loadPage("from post")
+            self.response.write('put the qustion obj')
+        self.response.write('Done!')
 
     def loadPage(self, debugParam):
         template_values = {}
@@ -184,16 +186,15 @@ class ContributionsPageHandler(webapp2.RequestHandler):
 
 class PostHandler(webapp2.RequestHandler):
 
-    def post(self):
-        # tag_string = 
-        # tags = tag_string.split()
-        
+    def post(self):        
         user = users.get_current_user()
         question = Question(author=getUser(user).key,
                             question_title=self.request.get('question_title'),
                             question_content=self.request.get('question_content'),
                             views=0,
-                            authenticity=0,
+                            # add up vote and down vote init
+                            up_votes=[], #init with this? getUser(user).key
+                            down_votes = [], #init with this? getUser(user).key
                             tags=self.request.get_all('tags'))
         question.put()
         self.redirect('/contributions');
