@@ -44,39 +44,50 @@
          </ul>
       <!-- </div> -->
 
-      {% if has_question_view %}
-      <div class="question_viewer">
-         <div class="viewer_header">
-            <div class="viewer_title">{{current_question.question_title}}</div>
-            <div class="viewer_views">{{current_question.views}} views</div>
-         </div>
-         <hr>
-         <div class="viewer_content">{{current_question.question_content}}</div>
-         <div class="viewer_metadata">
-            <div class="viewer_publishinfo">Posted by {{current_question.author_nickname}}
-                                            at {{current_question.formatted_timestamp}}</div> 
-            <div class="viewer_tags">
-               <ul class="viewer_tag_list" id="viewer_tag_list">
-                  <!-- list gets filled with the current questions tags -->
-                  {% for tag in current_question.tags %}
-                  <li>{{tag}}</li>
-                  {% endfor %}
-               </ul>
+      <div id="question_view_container">
+         {% if has_question_view %}
+         <div class="question_viewer">
+            <div class="viewer_header">
+               <div class="viewer_title">{{current_question.question_title}}</div>
+               <div class="viewer_views">{{current_question.views}} views</div>
             </div>
-         </div>
-         {% if user_name != "random user" %}
-            {% if not user_has_voted %}
-            <div id="viewer_vote">
-               <div class="up_vote">up</div>
-               <div class="down_vote">down</div>
+            <hr>
+            <div class="viewer_content">{{current_question.question_content}}</div>
+            <div class="viewer_metadata">
+               <div class="viewer_publishinfo">Posted by {{current_question.author_nickname}}
+                                               at {{current_question.formatted_timestamp}}</div> 
+               <div class="viewer_tags">
+                  <ul class="viewer_tag_list" id="viewer_tag_list">
+                     <!-- list gets filled with the current questions tags -->
+                     {% for tag in current_question.tags %}
+                     <li>{{tag}}</li>
+                     {% endfor %}
+                  </ul>
+               </div>
             </div>
+            {% if user_name != "random user" %}
+               {% if not user_has_voted %}
+               <div id="viewer_vote">
+                  <div class="up_vote">up</div>
+                  <div class="down_vote">down</div>
+               </div>
+               {% endif %}
+
+               <div id="viewer_solution_btn">view solutions</div>
+               <div id="viewer_solution_post_btn">post a solution</div>
             {% endif %}
+
+            <div class="hiddenQuestionInfo">{{current_question.key_string}}</div>
+
+         </div>
+
+         <div id="solution_edit">
+            <input id="solution_content" type="text" hint="Write solution here">
+            <div id="post_solution_btn">Post it!</div>
+            <div id="post_solution_cancel_btn">Cancel</div>
+         </div>
          {% endif %}
-
-         <div class="hiddenQuestionInfo">{{current_question.key_string}}</div>
-
       </div>
-      {% endif %}
 
       <div class="footer">{{debug1}}</div>
       <div>{{debug2}}</div>

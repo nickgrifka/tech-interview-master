@@ -1,6 +1,7 @@
 import os
 import urllib
 import ast
+import json
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -30,6 +31,22 @@ class Question(ndb.Model):
     down_votes = ndb.KeyProperty(UserAccount, repeated=True)
     tags = ndb.StringProperty(repeated=True)
     timestamp = ndb.DateTimeProperty(auto_now_add=True)
+
+class Answer(ndb.Model):
+    parent_question = ndb.KeyProperty(Question)
+    author = ndb.KeyProperty(UserAccount)
+    answer_content = ndb.StringProperty()
+    up_votes = ndb.KeyProperty(UserAccount, repeated=True)
+    down_votes = ndb.KeyProperty(UserAccount, repeated=True)
+    timestamp = ndb.DateTimeProperty(auto_now_add=True)
+
+    def userFriendlyAnswer(self):
+        content = self.answer_content
+        # author = UserAccount(self.author).user.nickname()
+        # timestamp = self.timestamp.strftime('%b %d, \'%y')
+        # rating = len(self.up_votes) - len(self.down_votes)
+        return {'content': content}#, 'author': author, 'timestamp': timestamp, 'rating': rating}
+
 
 # WARNING!! The code uses the same instance for everything! accumulates tags!
 class UserFriendlyQuestion():
@@ -79,11 +96,7 @@ def has_user_voted(ndb_user, ndb_question):
     return False
 
 
-class MainPageHandler(webapp2.RequestHandler):
-
-    def get(self):
-        # self.response.write('message from get')
-        self.loadPage("from get")
+class QuestionVoteHandler(webapp2.RequestHandler):
 
     def post(self):
         vote_data_string = self.request.body
@@ -104,6 +117,42 @@ class MainPageHandler(webapp2.RequestHandler):
             ndb_q.put()
             self.response.write('put the qustion obj')
         self.response.write('Done!')
+
+
+class AnswerHandler(webapp2.RequestHandler):
+
+    def get(self):
+        #TODO
+        question_key = ndb.Key(urlsafe=self.request.get('question_key'))
+        ndb_answers = Answer.query(Answer.parent_question==question_key)
+        answerList = []
+        for a in ndb_answers:
+            answerList.append(a.userFriendlyAnswer())
+
+        self.response.write(str(answerList)) #answer_string)
+
+
+    def post(self):
+        #TODO
+        answer_data = ast.literal_eval(self.request.body)
+        user_key = getUser(users.get_current_user()).key
+        answer = Answer(parent_question=ndb.Key(urlsafe=answer_data['question_key']),
+                        author=user_key,
+                        answer_content=answer_data['content'],
+                        up_votes=[],
+                        down_votes=[])
+        answer.put()
+        self.response.write('added answer obj')
+
+
+
+class MainPageHandler(webapp2.RequestHandler):
+
+    def get(self):
+        # self.response.write('message from get')
+        self.loadPage("from get")
+
+    
 
     def loadPage(self, debugParam):
         template_values = {}
@@ -183,9 +232,6 @@ class ContributionsPageHandler(webapp2.RequestHandler):
             template = JINJA_ENVIRONMENT.get_template('contributions.html')
             self.response.write(template.render(template_values))
 
-
-class PostHandler(webapp2.RequestHandler):
-
     def post(self):        
         user = users.get_current_user()
         question = Question(author=getUser(user).key,
@@ -199,28 +245,11 @@ class PostHandler(webapp2.RequestHandler):
         question.put()
         self.redirect('/contributions');
 
-        # Test page
-        # template_values = {
-        #     'author': question.author,
-        #     'question_title': question.question_title,
-        #     'question_content': question.question_content,
-        #     'views': question.views,
-        #     'authenticity': question.authenticity,
-        #     'tags': question.tags,
-        # }
 
-        # template = JINJA_ENVIRONMENT.get_template('testDb.html')
-        # self.response.write(template.render(template_values))
-
-class TestDbHandler(webapp2.RequestHandler):
-
-    def get(self):
-        template = JINJA_ENVIRONMENT.get_template('contributions.html')
-        self.response.write(template.render(template_values))
 
 application = webapp2.WSGIApplication([
     ('/', MainPageHandler),
     ('/contributions', ContributionsPageHandler),
-    ('/contributions/post', PostHandler),
-    ('/testDb', TestDbHandler),
+    ('/question_vote', QuestionVoteHandler),
+    ('/answer', AnswerHandler),
 ], debug=True)

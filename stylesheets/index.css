@@ -78,3 +78,12 @@
             <div class="viewer_tags"></div>
          </div>
       </div>*/
+
+#solution_edit {
+   width: 200px;
+   height: 100px;
+   float: left;
+   display: none;
+
+   border: 1px solid black;
+}
