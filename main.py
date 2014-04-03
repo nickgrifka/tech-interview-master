@@ -42,10 +42,11 @@ class Answer(ndb.Model):
 
     def userFriendlyAnswer(self):
         content = self.answer_content
-        # author = UserAccount(self.author).user.nickname()
-        # timestamp = self.timestamp.strftime('%b %d, \'%y')
-        # rating = len(self.up_votes) - len(self.down_votes)
-        return {'content': content}#, 'author': author, 'timestamp': timestamp, 'rating': rating}
+        author = self.author.get().user.nickname()
+        timestamp = self.timestamp.strftime('%b %d, \'%y')
+        rating = len(self.up_votes) - len(self.down_votes)
+        answer_key = self.key.urlsafe()
+        return {'answer_key': answer_key, 'content': content, 'author': author, 'timestamp': timestamp, 'rating': rating}
 
 
 # WARNING!! The code uses the same instance for everything! accumulates tags!
@@ -122,18 +123,16 @@ class QuestionVoteHandler(webapp2.RequestHandler):
 class AnswerHandler(webapp2.RequestHandler):
 
     def get(self):
-        #TODO
         question_key = ndb.Key(urlsafe=self.request.get('question_key'))
         ndb_answers = Answer.query(Answer.parent_question==question_key)
         answerList = []
         for a in ndb_answers:
             answerList.append(a.userFriendlyAnswer())
 
-        self.response.write(str(answerList)) #answer_string)
+        self.response.write(json.dumps({'answers': answerList})) #answer_string)
 
 
     def post(self):
-        #TODO
         answer_data = ast.literal_eval(self.request.body)
         user_key = getUser(users.get_current_user()).key
         answer = Answer(parent_question=ndb.Key(urlsafe=answer_data['question_key']),
@@ -145,6 +144,36 @@ class AnswerHandler(webapp2.RequestHandler):
         self.response.write('added answer obj')
 
 
+class AnswerVoteHandler(webapp2.RequestHandler):
+
+    def post(self):
+        user_key = getUser(users.get_current_user()).key
+        answer_vote_data = ast.literal_eval(self.request.body)
+        answer_key = answer_vote_data['answer_key']
+        vote_status = answer_vote_data['vote_status']
+        ndb_answer = ndb.Key(urlsafe=answer_key).get()
+
+        for key in ndb_answer.up_votes:
+            if key == user_key:
+                self.response.write('WARNING: user already voted (up)')
+                return
+
+        for key in ndb_answer.down_votes:
+            if key == user_key:
+                self.response.write('WARNING: user already voted (down)')
+                return
+
+        if vote_status == 'up':
+            ndb_answer.up_votes.append(user_key)
+            self.response.write('Python: up vote!')
+
+        elif vote_status == 'down':
+            ndb_answer.down_votes.append(user_key)
+            self.response.write('Python: down vote!')
+        else:
+            self.response.write('ERROR: invalid vote_status')
+        ndb_answer.put()
+        
 
 class MainPageHandler(webapp2.RequestHandler):
 
@@ -252,4 +281,5 @@ application = webapp2.WSGIApplication([
     ('/contributions', ContributionsPageHandler),
     ('/question_vote', QuestionVoteHandler),
     ('/answer', AnswerHandler),
+    ('/answer_vote', AnswerVoteHandler),
 ], debug=True)

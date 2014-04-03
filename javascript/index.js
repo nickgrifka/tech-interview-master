@@ -43,6 +43,8 @@ function getSolutions(e)
       success: function(response) {
          console.log('AJAX success!');
          console.log(response);
+         console.log(JSON.parse(response));
+         showAnswers(JSON.parse(response)['answers']);
       }
    });
 }
@@ -50,7 +52,6 @@ function getSolutions(e)
 
 function postSolution(e)
 {
-   closeSolutionPost(e);
    var solutionString = document.getElementById('solution_content').value;
    console.log(e.target.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0]);
    var question_key_string = e.target.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
@@ -67,11 +68,13 @@ function postSolution(e)
          console.log(response);
       }
    });
+   closeSolutionPost(e);
 }
 
 function closeSolutionPost()
 {
    document.getElementById('solution_edit').style.display = 'none';
+   document.getElementById('solution_content').value = '';
 }
 
 function openSolutionPost()
@@ -79,6 +82,57 @@ function openSolutionPost()
    document.getElementById('solution_edit').style.display = 'block';
    document.getElementById('post_solution_btn').addEventListener('click', postSolution);
    document.getElementById('post_solution_cancel_btn').addEventListener('click', closeSolutionPost);
+}
+
+function showAnswers(answersList)
+{
+   var answerList = document.getElementById('answer_viewer');
+   answerList.innerHTML = '';
+   console.log('here');
+   for (var i = 0; i < answersList.length; i++)
+   {
+      var answerElement = createAnswerElement(answersList[i]);
+      answerList.appendChild(answerElement);
+      // answerElement
+   }
+}
+
+function upVoteAnswer(e)
+{
+   voteAnswer(e, 'up');
+}
+
+function downVoteAnswer(e)
+{
+   voteAnswer(e, 'down');
+}
+
+function voteAnswer(e, status)
+{
+   console.log(e.target.parentNode.parentNode.parentNode.parentNode.parentNode.className);
+   var answer_key = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('answer_key')[0].innerHTML;
+   var data = {'answer_key': answer_key, 'vote_status': status};
+
+   console.log(JSON.stringify(data));
+
+   $.ajax({
+      type: 'POST',
+      url: '/answer_vote',
+      data: JSON.stringify(data),
+      success: function(response) {
+         console.log('AJAX sucessful');
+         console.log(response);
+      }
+   })
+}
+
+function createAnswerElement(answer)
+{
+   var answerElement = document.createElement('li');
+   answerElement.innerHTML = '<div class="answer_key">' + answer['answer_key'] + '</div><table class="answer_div"><tr><td class="vote_cell"><div class="up_vote">up</div><div class="answer_rating">' + answer['rating'] + '</div><div class="down_vote">down</div></td><td class="content_cell"><div class="answer_content">' + answer['content'] + '</div><div class="answer_meta">Answered by ' + answer['author'] + ' on ' + answer['timestamp'] + '</div></td></tr></table>';
+   answerElement.getElementsByClassName('up_vote')[0].addEventListener('click', upVoteAnswer);
+   answerElement.getElementsByClassName('down_vote')[0].addEventListener('click', downVoteAnswer);
+   return answerElement;
 }
 
 function main()

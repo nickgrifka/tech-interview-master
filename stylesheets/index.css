@@ -68,16 +68,31 @@
 
    border: 1px solid black;
 }
-/*<div class="question_viewer">
-         <div class="viewer_title">{{current_question.question_title}}</div>
-         <div class="viewer_views">{{current_question.views}} views</div>
-         <hr/>
-         <div class="viewer_content">{{current_question.question_content}}</div>
-         <div class="viewer_metadata">
-            <div class="viewer_publishinfo"></div> 
-            <div class="viewer_tags"></div>
-         </div>
-      </div>*/
+
+.answer_key {
+   display: none;
+}
+
+.answer_div {
+   width: 100%;
+}
+
+.up_vote {
+   /*answer voting div */
+}
+
+.down_vote {
+   /*answer voting div */
+}
+
+#answer_viewer {
+   width: 758px;
+   height: auto;
+   background-color: yellow;
+   float: left;
+
+   border: 1px solid blue;
+}
 
 #solution_edit {
    width: 200px;
