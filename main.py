@@ -2,6 +2,7 @@ import os
 import urllib
 import ast
 import json
+import logging
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -96,6 +97,46 @@ def has_user_voted(ndb_user, ndb_question):
             return True
     return False
 
+def search(query):
+    debug = ''
+    SCORE_THRESHOLD = 2
+    questions = Question.query()
+    score_index = [0 for i in range(questions.count())]
+    debug += 'query result length=' + str(questions.count())
+    # tag score addition
+    for q, i in zip(questions, range(len(score_index))):
+        tags = (q.tags[0]).split(',')
+        for tag in tags:
+            if tag == query:
+                score_index[i] = score_index[i] + 3
+                debug += 'question: ' + q.question_title + ' has a matching tag of ' + tag + ': '
+
+    # title score addition
+    for q, i in zip(questions, range(len(score_index))):
+        if q.question_title.lower().find(query) != -1:
+            score_index[i] = score_index[i] + 5
+            debug += 'question: ' + q.question_title + ' has a title substring of query: '
+
+    # content score addition
+    for q, i in zip(questions, range(len(score_index))):
+        if q.question_content.lower().find(query) != -1:
+            score_index[i] = score_index[i] + 2
+            debug += 'question: ' + q.question_title + ' has a content substring of query: '
+
+    debug += 'scores are: '
+    # pick the top scorers
+    top_scorers = []
+    for q, i in zip(questions, range(len(score_index))):
+        debug += str(score_index[i]) + ', '
+        if score_index[i] > SCORE_THRESHOLD:
+            top_scorers.append(q)
+
+
+    # debug
+    # return debug
+
+    return top_scorers
+
 
 class QuestionVoteHandler(webapp2.RequestHandler):
 
@@ -178,10 +219,7 @@ class AnswerVoteHandler(webapp2.RequestHandler):
 class MainPageHandler(webapp2.RequestHandler):
 
     def get(self):
-        # self.response.write('message from get')
-        self.loadPage("from get")
-
-    
+        self.loadPage("from get")    
 
     def loadPage(self, debugParam):
         template_values = {}
@@ -201,34 +239,19 @@ class MainPageHandler(webapp2.RequestHandler):
         debug1 = ''
         debug2 = 'debug2|'
 
-        # Grabs the specified question info if 'question' parameter is in the url
-        user_has_voted = False
-        has_question_view = False
-        question_obj = None
-        user_friendly_question = None
-        question_key_string = self.request.get('question')
-        if question_key_string != None and question_key_string != '':
-            question_obj = ndb.Key(urlsafe=question_key_string).get()
-
-            # Increment the view count
-            question_obj.views = question_obj.views + 1
-            question_obj.put()
-
-            # Grab a more user friendly version of the data
-            user_friendly_question = UserFriendlyQuestion(question_obj)
-            has_question_view = True
-
-            # Find out if user has voted on this question
-            if user:
-                user_has_voted = has_user_voted(getUser(user), question_obj)
+        # Grabs the relevant posts to the user's query if 'query' parameter is in the url
+        query = self.request.get('query')
+        if query != None and query != '':
+            # search fn call
+            debug1 = 'search fired'
+            question_obj_list = search(query)
+            user_friendly_questions = UserFriendlyQuestionList(question_obj_list)
+            # debug1 = search(query)
 
 
         template_values = {
             'user_name': user_name,
             'questions': user_friendly_questions,
-            'has_question_view': has_question_view,
-            'current_question': user_friendly_question,
-            'user_has_voted': user_has_voted,
             'debug1': debug1,
             'debug2': debugParam,
         }
@@ -274,6 +297,44 @@ class ContributionsPageHandler(webapp2.RequestHandler):
         question.put()
         self.redirect('/contributions');
 
+class QuestionHandler(webapp2.RequestHandler):
+
+    def get(self):
+        question_key_string = self.request.get('question_key')
+        if question_key_string != None and question_key_string != '':
+            # Grabs the specified question info if 'question' parameter is in the url
+            can_user_vote = False
+            has_question_view = False
+            question_obj = None
+            user_friendly_question = None
+            question_obj = ndb.Key(urlsafe=question_key_string).get()
+
+            # Increment the view count
+            question_obj.views = question_obj.views + 1
+            question_obj.put()
+
+            # Grab a more user friendly version of the data
+            user_friendly_question = UserFriendlyQuestion(question_obj)
+            has_question_view = True
+
+            # Find out if user has voted on this question
+            user = users.get_current_user()
+            if user:
+                can_user_vote = not (has_user_voted(getUser(user), question_obj))
+
+            self.response.write(json.dumps({'current_question': 
+                                              {'question_title': user_friendly_question.question_title,
+                                               'question_content': user_friendly_question.question_content,
+                                               'author_nickname': user_friendly_question.author_nickname,
+                                               'formatted_timestamp': user_friendly_question.formatted_timestamp,
+                                               'views': user_friendly_question.views,
+                                               'key_string': user_friendly_question.key_string,
+                                               'tags': user_friendly_question.tags
+                                               },
+                                            'can_user_vote': can_user_vote}))
+        else:
+            self.response.write("Error: no question string specified")
+
 
 
 application = webapp2.WSGIApplication([
@@ -282,4 +343,5 @@ application = webapp2.WSGIApplication([
     ('/question_vote', QuestionVoteHandler),
     ('/answer', AnswerHandler),
     ('/answer_vote', AnswerVoteHandler),
+    ('/question', QuestionHandler),
 ], debug=True)

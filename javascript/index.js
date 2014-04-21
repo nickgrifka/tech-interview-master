@@ -88,12 +88,12 @@ function showAnswers(answersList)
 {
    var answerList = document.getElementById('answer_viewer');
    answerList.innerHTML = '';
+   answerList.style.display = 'block';
    console.log('here');
    for (var i = 0; i < answersList.length; i++)
    {
       var answerElement = createAnswerElement(answersList[i]);
       answerList.appendChild(answerElement);
-      // answerElement
    }
 }
 
@@ -135,6 +135,29 @@ function createAnswerElement(answer)
    return answerElement;
 }
 
+function startSearch(query)
+{
+   console.log('search with query: ' + query);
+   window.location = '/?query=' + query;
+}
+
+function getUrlParameter(sParam)
+{
+   var sPageURL = window.location.search.substring(1);
+   var sURLVariables = sPageURL.split('&');
+   for (var i = 0; i < sURLVariables.length; i++) 
+   {
+      var sParameterName = sURLVariables[i].split('=');
+      if (sParameterName[0] == sParam) 
+      {
+         return sParameterName[1];
+      }
+   }
+   return null;
+}
+
+
+
 function main()
 {
    // Set event listener to viewer voting box
@@ -151,6 +174,20 @@ function main()
    if (document.getElementById('viewer_solution_post_btn') != null)
    {
       document.getElementById('viewer_solution_post_btn').addEventListener('click', openSolutionPost);
+   }
+
+   $('#search').keypress(function(e) {
+      if (e.keyCode == 13 && this.value != '')
+      {
+         startSearch(this.value.toLowerCase());
+      }
+   });
+
+   // if user came from contributions, get current question
+   var q = getUrlParameter('q');
+   if (q != null)
+   {
+      grabQuestionInfo(q);
    }
 }
 

@@ -96,6 +96,11 @@ function grabQuestionTags()
    return tags;
 }
 
+function questionRedirect(e)
+{
+   window.location = '/?q=' + e.target.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
+}
+
 
 function main()
 {
@@ -113,6 +118,9 @@ function main()
       TAGS.splice(TAGS.indexOf(e.target.innerHTML), 1);
       clearTagSuggestions();
    });
+
+   // Redirect when question is clicked
+   document.getElementById('userContributions').addEventListener('click', questionRedirect);
 }
 
 $(document).ready(main);

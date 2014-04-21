@@ -24,6 +24,7 @@
    height: auto;
    background-color: green;
    float: left;
+   display: none;
 
    border: 1px solid yellow;
 }
