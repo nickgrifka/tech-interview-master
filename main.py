@@ -3,6 +3,7 @@ import urllib
 import ast
 import json
 import logging
+from operator import attrgetter
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -169,8 +170,10 @@ class AnswerHandler(webapp2.RequestHandler):
         answerList = []
         for a in ndb_answers:
             answerList.append(a.userFriendlyAnswer())
+        answerList = sorted(answerList, key=lambda x: x['rating'], reverse=True)
+        answer_data = {'answers': answerList};
 
-        self.response.write(json.dumps({'answers': answerList})) #answer_string)
+        self.response.write(json.dumps(answer_data)) #answer_string)
 
 
     def post(self):
