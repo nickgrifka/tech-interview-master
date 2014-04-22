@@ -129,6 +129,7 @@ function voteAnswer(e, status)
 function createAnswerElement(answer)
 {
    var answerElement = document.createElement('li');
+   answerElement.className += 'answer_list_elt'
    answerElement.innerHTML = '<div class="answer_key">' + answer['answer_key'] + '</div><table class="answer_div"><tr><td class="vote_cell"><div class="up_vote">up</div><div class="answer_rating">' + answer['rating'] + '</div><div class="down_vote">down</div></td><td class="content_cell"><div class="answer_content">' + answer['content'] + '</div><div class="answer_meta">Answered by ' + answer['author'] + ' on ' + answer['timestamp'] + '</div></td></tr></table>';
    answerElement.getElementsByClassName('up_vote')[0].addEventListener('click', upVoteAnswer);
    answerElement.getElementsByClassName('down_vote')[0].addEventListener('click', downVoteAnswer);

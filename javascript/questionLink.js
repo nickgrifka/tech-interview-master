@@ -26,7 +26,7 @@ function grabQuestionInfo(keyString)
 function showQuestion(questionObj, canVote)
 {
     document.getElementsByClassName('viewer_title')[0].innerHTML = questionObj.question_title;
-    document.getElementsByClassName('viewer_views')[0].innerHTML = questionObj.views;
+    document.getElementsByClassName('viewer_views')[0].innerHTML = questionObj.views + ' views';
     document.getElementsByClassName('viewer_content')[0].innerHTML = questionObj.question_content;
     document.getElementsByClassName('viewer_publishinfo')[0].innerHTML = 'Posted by ' + questionObj.author_nickname + ' at ' + questionObj.formatted_timestamp;
     document.getElementsByClassName('question_viewer')[0].getElementsByClassName('hiddenQuestionInfo')[0].innerHTML = questionObj.key_string;
