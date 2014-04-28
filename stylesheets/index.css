@@ -23,8 +23,9 @@
 }
 
 .content {
-   width: 798px;
-   height: auto;
+   /*position: relative;*/
+   width: 1205px;
+   height: 100%;
    float: left;
    border: 1px solid black;
 }
@@ -36,25 +37,32 @@
    border: 1px solid black;
 }
 
-.question_viewer {
-   width: 798px;
+#question_view_container {
+   max-height: 400px;
+   overflow: scroll;
+   overflow-x: scroll;
+   display: none;
+}
+
+/*.question_viewer {
+   width: 792px;
    height: auto;
    float: left;
    display: none;
 
    border-radius: 5px;
    border: 1px solid #ABABAB;
-}
+}*/
 
 .viewer_header {
-   width: 788px;
-   height: 75px;
+   width: 798px;
+   height: auto;
 
-   border: 1px solid blue;
+   /*border: 1px solid blue;*/
 }
 
 .viewer_title {
-   width: 500px;
+   width: 580px;
    font-size: 36px;
    padding: 15px;
    float: left;
@@ -63,8 +71,9 @@
 }
 
 .viewer_views {
-   width: 200px;
-   font-size: 36px;
+   width: 130px;
+   font-size: 24px;
+   color: #828282;
    padding: 15px;
    float: right;
    text-align: right;
@@ -76,15 +85,124 @@
    font-size: 24px;
    padding: 15px;
    float: left;
+   width: 750px;
 
    border: 1px solid black;
 }
 
-.viewer_vote {
-   width: 50px;
-   height: 50px;
+.viewer_tags {
+   height: auto;
+   float: left;
 
    border: 1px solid black;
+}
+
+.viewer_tag_list {
+   /*display: inline;*/
+   width: 738px;
+
+}
+
+.viewer_tag_list li {
+   font-size: 14px;
+   display: inline;
+   margin-right: 18px;
+   padding: 4px;
+   background-color: #828282;
+   color: white;
+
+   /*border: 1px solid black;*/
+}
+
+.viewer_tag_list li:hover {
+   background-color: orange;
+   cursor: default;
+}
+
+.viewer_publishinfo {
+   text-align: right;
+   padding-right: 20px;
+   width:758px; /*788px*/
+   float: left;
+
+   /*border: 1px solid yellow;*/
+}
+
+#question_actions {
+   /*border: 1px solid #ABABAB;*/
+   border: 1px solid green;
+   background-color: green;
+}
+
+#viewer_vote {
+   width: 778px;
+   height: 30px;
+   display: inline;
+   float: left;
+
+   /*border: 1px solid green;*/
+}
+
+#question_vote_text {
+   display: inline;
+   float: left;
+   margin-left: 10px;
+   height: 100%;
+   font-size: 100%;
+
+   /*border: 1px solid black;*/
+}
+
+#up_vote {
+   display: inline;
+   width: 20px;
+   height: 16px;
+   float: left;
+   margin-left: 10px;
+   background-image: url('/img/thumbs_up.png');
+   background-repeat: no-repeat;
+   background-size: 100% 100%;
+
+   /*border: 1px solid black;*/
+}
+#up_vote:hover {
+   background-image: url('/img/thumbs_up_filled.png');
+}
+
+#down_vote {
+   display: inline;
+   width: 20px;
+   height: 16px;
+   float: left;
+   margin-left: 6px;
+   background-image: url('/img/thumbs_down.png');
+   background-repeat: no-repeat;
+   background-size: 100% 100%;
+
+   /*border: 1px solid black;*/
+}
+#down_vote:hover {
+   background-image: url('/img/thumbs_down_filled.png');
+}
+
+.textLink:hover {
+   color: orange;
+   text-decoration: underline;
+   cursor: default;
+}
+
+#viewer_solution_btn {
+   float: left;
+   width: auto;
+   margin-left: 10px;
+   margin-bottom: 10px;
+}
+
+#viewer_solution_post_btn {
+   float: right;
+   width: auto;
+   margin-right: 10px;
+   margin-bottom: 10px;
 }
 
 .answer_key {
@@ -93,38 +211,56 @@
 
 .answer_div {
    width: 100%;
-   border-radius: 5px;
-   border: 1px solid #ABABAB;
-   padding: 18px;
+   /*border-radius: 5px;*/
+   border-top: 1px solid #ABABAB;
+   padding: 14px;
 }
 
 .vote_cell {
+   width: 50px;
    margin-right: 15px;
+
+   /*border: 1px solid black;*/
 }
 
-.up_vote {
-   padding-top: 5px;
-   padding-bottom: 5px;
+.answer_up_vote {
+   width: 50px;
+   height: 50px;
+   background-image: url('/img/circle_up.png');
+   background-repeat: no-repeat;
+   background-size: 100% 100%;
+}
+.answer_up_vote:hover {
+   background-image: url('/img/highlighted_circle_up.png');
 }
 
 .answer_rating {
-   padding-top: 5px;
-   padding-bottom: 5px;
    font-style: bold;
    font-size: 24px;
+   text-align: center;
 }
 
-.down_vote {
-   padding-top: 5px;
-   padding-bottom: 5px;
+.answer_down_vote {
+   width: 50px;
+   height: 50px;
+   background-image: url('/img/circle_down.png');
+   background-repeat: no-repeat;
+   background-size: 100% 100%;
+}
+.answer_down_vote:hover {
+   background-image: url('/img/highlighted_circle_down.png');
 }
 
 .content_cell {
    padding-left:15px;
+
+   /*border: 1px solid black;*/
 }
 
 .answer_content {
    height: 75%;
+
+   /*border: 1px solid black;*/
 }
 
 .answer_meta {
@@ -132,7 +268,10 @@
    margin-top: 25px;
    margin-bottom: 0px;
    text-align: right;
+   font-size: 14px;
    color: #828282;
+
+   /*border: 1px solid black;*/
 }
 
 #answer_viewer {

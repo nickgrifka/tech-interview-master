@@ -7,19 +7,22 @@
 </head>
 
 <body>
+   <div id="banner">
+      <a href="/contributions" id="post_link">
+         <button id="post_button">
+            Post
+         </button>
+      </a>
+
+      <div id="userName">
+         hello {{user_name}}
+      </div>
+   </div>
+
    <div class="container">
 
       <div class="header">
          Tech-Interview-Master
-         <div id="userName">
-            hello {{user_name}}
-         </div>
-         <br>
-         <a href="/contributions">
-            <button id="post_button">
-               Post
-            </button>
-         </a>
       </div>
 
       <div class="search">
@@ -27,7 +30,7 @@
          <a href="/"><button id="refresh">Refresh</button></a>
       </div>
 
-      <!-- <div class="content"> -->
+      <div class="content">
          <ul class="questionList" id="userContributions">
          <!-- list gets filled with the users posts -->
             {% for q in questions %}
@@ -42,51 +45,51 @@
             </li>
             {% endfor %}
          </ul>
-      <!-- </div> -->
+      
 
-      <div id="question_view_container">
-         
-         <div class="question_viewer">
-            <div class="viewer_header">
-               <div class="viewer_title"></div>
-               <div class="viewer_views"></div>
-            </div>
-            <hr>
-            <div class="viewer_content"></div>
-            <div class="viewer_metadata">
-               <div class="viewer_publishinfo"></div> 
-               <div class="viewer_tags">
-                  <ul class="viewer_tag_list" id="viewer_tag_list">
-                     <!-- list gets filled with the current questions tags -->
-                     
-                  </ul>
+         <div id="question_view_container">
+            
+            <div class="question_viewer">
+               <div class="viewer_header">
+                  <div class="viewer_views"></div>
+                  <div class="viewer_title"></div>
                </div>
-            </div>
+               <div class="viewer_content"></div>
+               <div class="viewer_metadata">
+                  <div class="viewer_tags">
+                     <ul class="viewer_tag_list" id="viewer_tag_list">
+                        <!-- list gets filled with the current questions tags -->
+                     </ul>
+                  </div>
+                  <div class="viewer_publishinfo"></div>
+               </div>
 
                <div id="viewer_vote">
-                  <div class="up_vote">up</div>
-                  <div class="down_vote">down</div>
+                  <div id="question_vote_text">Is this question useful to the community?</div>
+                  <div id="up_vote"></div>
+                  <div id="down_vote"></div>
                </div>
 
-               <div id="viewer_solution_btn">view solutions</div>
-               <div id="viewer_solution_post_btn">post a solution</div>
+               <div id="viewer_solution_btn" class="textLink">view solutions</div>
+               <div id="viewer_solution_post_btn" class="textLink">post a solution</div>
 
-            <div class="hiddenQuestionInfo"></div>
+               <div class="hiddenQuestionInfo"></div>
 
+            </div>
+
+            <div id="solution_edit">
+               <input id="solution_content" type="text" placeholder="Write solution here">
+               <div id="post_solution_btn">Post it!</div>
+               <div id="post_solution_cancel_btn">Cancel</div>
+            </div>
+            <ul id="answer_viewer">
+            </ul>
          </div>
-
-         <div id="solution_edit">
-            <input id="solution_content" type="text" placeholder="Write solution here">
-            <div id="post_solution_btn">Post it!</div>
-            <div id="post_solution_cancel_btn">Cancel</div>
-         </div>
-         <ul id="answer_viewer">
-         </ul>
       </div>
- 
-      <div class="footer">{{debug1}}</div>
 
    </div>
+
+   <div class="footer">Debug:{{debug1}}, created by <a href="http://www.nick-grifka.com">Nick Grifka</a> Last updated May 2014</div>
 
 </body>
 

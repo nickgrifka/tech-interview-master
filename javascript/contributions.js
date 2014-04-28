@@ -1,5 +1,7 @@
 // Globals
-var TAGS = ['hash tables', 'binary trees', 'trees', 'arrays', 'queues', 'stacks'];
+var TAGS = ['hash tables', 'binary trees', 'trees', 'arrays', 'queues', 'stacks', 'b+ trees', 'permutations', 'probability',
+            'vectors', 'lists', 'linked lists', 'algorithms', 'implementations', 'testing', 'graphs', 'networks', 'patterns',
+            'puzzles', 'sorting'];
 MAX_TAG_SEARCH_RESULTS = 5;
 var oldInput = '';
 
@@ -53,6 +55,7 @@ function tagSearch()
       }
 
       var numResults = 0;
+      console.log('tags length: ' + TAGS.length);
       for (var i = 0; i < TAGS.length; i++)
       {
          if (TAGS[i].indexOf(input) != -1 && numResults < MAX_TAG_SEARCH_RESULTS)

@@ -1,10 +1,27 @@
-body {
+html, body {
    /*margin: 0px;*/
    font-family: Verdana, Helvetica, sans-serif;
-   /*background-image: url('/img/squared_metal.png');*/
+   /*background-image: url('/img/gray_background.jpg');*/
+   /*background-image: url('/img/orange_background.png');*/
+   /*background-repeat: no-repeat;*/
+   /*background-size: 100% 100%;*/
    background-color: white;
    display: block;
+   /*height: 100%;*/
+   padding: 0px;
+
+   margin: 0;
+   width: 100%;
+   height: 100%;
 }
+
+/*html {
+   border: 1px solid green;
+}
+body {
+   border: 1px solid blue;
+
+}*/
 
 a {
    color: black;
@@ -17,16 +34,26 @@ a {
    margin: 0 auto;
    display: block;
 
-   /*border: 3px solid black;*/
+   border: 1px solid green;
 }
 
 ul {
    list-style-type: none;
 }
 
+#banner {
+   /*width: 100%;*/
+   height: 40px;
+   background-color: black;
+   color: white;
+   /*margin: 0px;*/
+
+   border: 1px solid yellow;
+}
+
 .header {
    width: 1198px;
-   height: 130px;
+   height: 60px;
    font-size: 48px;
 
    border: 1px solid black;
@@ -37,11 +64,15 @@ ul {
 }
 
 .footer {
-   width: 1198px;
-   height: 200px;
+   position: absolute;
+   width: 100%;
+   height: auto;
+   bottom: 0;
    font-size: 12px;
-   float: left;
-   border: 1px solid black;
+   /*float: left;*/
+   text-align: center;
+
+   /*border: 1px solid black;*/
 }
 
 .questionList {
@@ -53,7 +84,7 @@ ul {
    list-style-type: none;
    padding-left: 0px;
    margin-top: 0px;
-   border: 1px solid #ABABAB;
+   /*border: 1px solid #ABABAB;*/
 }
 
 .questionListDiv {
@@ -83,18 +114,23 @@ ul {
    display: none;
 }
 
+#post_button {
+   width: 40px;
+   height: 25px;
+   font-size: 12px;
+}
+
+#post_link {
+   float: right;
+   margin: 8px;
+}
+
 #userName {
-   width: 300px;
+   width: auto;
    height: 30px;
    font-size: 20px;
    float: right;
-}
-
-#post_button {
-   width: 50px;
-   height: 30px;
-   font-size: 12px;
-   float: right;
+   margin: 8px;
 }
 
 #shadow {
