@@ -247,6 +247,12 @@ class MainPageHandler(webapp2.RequestHandler):
             user_name = 'random user'
 
         tmp = Question.query().order(-Question.timestamp)
+
+        # Remove questions that are too negatively rated
+        for q in tmp:
+            if len(q.down_votes) >= 2:
+                q.key.delete()
+
         user_friendly_questions = UserFriendlyQuestionList(tmp)
         user_friendly_questions = trimContent(user_friendly_questions)
 
