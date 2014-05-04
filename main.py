@@ -218,16 +218,25 @@ class AnswerVoteHandler(webapp2.RequestHandler):
                 self.response.write('WARNING: user already voted (down)')
                 return
 
+        remove_answer = False
         if vote_status == 'up':
             ndb_answer.up_votes.append(user_key)
             self.response.write('Python: up vote!')
 
         elif vote_status == 'down':
-            ndb_answer.down_votes.append(user_key)
             self.response.write('Python: down vote!')
+            ndb_answer.down_votes.append(user_key)
+
+            # delete the answer if it is really bad
+            if len(ndb_answer.down_votes) >= 2:
+                ndb_answer.key.delete()
+                self.response.write('delete the answer')
+                remove_answer = True
         else:
             self.response.write('ERROR: invalid vote_status')
-        ndb_answer.put()
+
+        if not remove_answer:
+            ndb_answer.put()
         
 
 class MainPageHandler(webapp2.RequestHandler):
