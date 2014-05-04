@@ -31,10 +31,12 @@ function votePost(e)
 
 function getSolutions(e)
 {
-   console.log(e.target.parentNode.parentNode.className);
-   var question_key_string = e.target.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
+   console.log(e.target.parentNode.id);
+   var question_key_string = e.target.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
    var data = new Object();
    data = {'question_key': question_key_string};
+
+   console.log(JSON.stringify(data));
 
    $.ajax({
       type: 'GET',
@@ -43,7 +45,6 @@ function getSolutions(e)
       success: function(response) {
          console.log('AJAX success!');
          console.log(response);
-         console.log(JSON.parse(response));
          showAnswers(JSON.parse(response)['answers']);
       }
    });
@@ -53,9 +54,10 @@ function getSolutions(e)
 function postSolution(e)
 {
    var solutionString = document.getElementById('solution_content').value;
-   console.log(e.target.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0]);
-   var question_key_string = e.target.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
-   var data = {'question_key': question_key_string, 'content': solutionString};
+   console.log(e.target.parentNode.parentNode.parentNode.id); //getElementsByClassName('hiddenQuestionInfo')[0]);
+   var question_key_string = e.target.parentNode.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
+   var data = new Object();
+   data = {'question_key': question_key_string, 'content': solutionString};
 
    console.log(JSON.stringify(data));
 
@@ -157,6 +159,11 @@ function getUrlParameter(sParam)
    return null;
 }
 
+function refresh()
+{
+   window.location = '/';
+}
+
 
 
 function main()
@@ -176,6 +183,8 @@ function main()
    {
       document.getElementById('viewer_solution_post_btn').addEventListener('click', openSolutionPost);
    }
+
+   document.getElementById('refresh').addEventListener('click', refresh);
 
    $('#search').keypress(function(e) {
       if (e.keyCode == 13 && this.value != '')

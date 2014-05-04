@@ -29,7 +29,7 @@ function showQuestion(questionObj, canVote)
     document.getElementsByClassName('viewer_views')[0].innerHTML = questionObj.views + ' views';
     document.getElementsByClassName('viewer_content')[0].innerHTML = questionObj.question_content;
     document.getElementsByClassName('viewer_publishinfo')[0].innerHTML = 'Posted by ' + questionObj.author_nickname + ' at ' + questionObj.formatted_timestamp;
-    document.getElementsByClassName('question_viewer')[0].getElementsByClassName('hiddenQuestionInfo')[0].innerHTML = questionObj.key_string;
+    document.getElementById('question_view_container').getElementsByClassName('hiddenQuestionInfo')[0].innerHTML = questionObj.key_string;
 
     // tags
     var tagListElement = document.getElementById('viewer_tag_list');

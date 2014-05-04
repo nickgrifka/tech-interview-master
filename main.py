@@ -165,15 +165,26 @@ class QuestionVoteHandler(webapp2.RequestHandler):
 class AnswerHandler(webapp2.RequestHandler):
 
     def get(self):
-        question_key = ndb.Key(urlsafe=self.request.get('question_key'))
-        ndb_answers = Answer.query(Answer.parent_question==question_key)
-        answerList = []
-        for a in ndb_answers:
-            answerList.append(a.userFriendlyAnswer())
-        answerList = sorted(answerList, key=lambda x: x['rating'], reverse=True)
-        answer_data = {'answers': answerList};
+        key_string = self.request.get('question_key') # AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+        if key_string != None and key_string != '':
+            # retrieve the answers asscoiated with the question key
+            question_key = ndb.Key(urlsafe=self.request.get('question_key'))
+            ndb_answers = Answer.query(Answer.parent_question==question_key)
+            answerList = []
+            for a in ndb_answers:
+                answerList.append(a.userFriendlyAnswer())
 
-        self.response.write(json.dumps(answer_data)) #answer_string)
+            # Sort the answers based on rating and send them back
+            answerList = sorted(answerList, key=lambda x: x['rating'], reverse=True)
+            answer_data = {'answers': answerList};
+            self.response.write(json.dumps(answer_data))
+        else:
+            key_string = self.request.body
+            if key_string != None and key_string != '':
+                self.response.write('body: ' + key_string)
+            else:
+                # key_string = self.get_all
+                self.response.write('failed get and body url: ' + str(self.request.url))
 
 
     def post(self):
@@ -335,6 +346,8 @@ class QuestionHandler(webapp2.RequestHandler):
                                                'tags': user_friendly_question.tags
                                                },
                                             'can_user_vote': can_user_vote}))
+            #test
+            # self.response.write("  url: " + str(self.request.url))
         else:
             self.response.write("Error: no question string specified")
 

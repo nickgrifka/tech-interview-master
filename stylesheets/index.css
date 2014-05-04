@@ -1,68 +1,92 @@
 .search {
    width: 1198px;
    height: 60px;
-   padding-top: 12px;
+   /*padding-top: 12px;*/
    text-align: center;
 
-   border: 1px solid black;
+   /*border: 1px solid black;*/
 }
 
-#search {
-   width: 300px;
-   height: 40px;
+#search_wrapper {
+   width: 360px;
+   height: 34px;
+   /*margin-left: auto;*/
    border-radius: 20px;
    border-style: solid;
    border-color: #FFA733;
-   padding-left: 10px;
-   font-size: 20px;
+   margin-top: 8px;
+   /*display: inline-block;*/
+   float: right;
+   /*padding: 3px;*/
+}
+
+#search_icon {
+   width: 32px;
+   height: 32px;
+   display: inline-block;
+   float: left;
+   margin-left: 5px;
+   margin-top: auto;
+   margin-bottom: auto;
+
+   /*border: 1px solid black;*/
+}
+
+
+#search {
+   width: 290px;
+   height: 28px;
+   border: none;
+   margin-left: 6px;
+   margin-top: auto;
+   margin-bottom: auto;
+   float: left;
+   font-size: 17px;
    font-style: italic;
+   display: inline-block;
+
+   /*border: 1px solid black;*/
 }
 
 #search:focus {
    outline-width: 0px;
 }
 
-.content {
-   /*position: relative;*/
-   width: 1205px;
-   height: 100%;
-   float: left;
-   border: 1px solid black;
+#refresh {
+   width: 60px;
+   height: 20px;
+   padding: 5px;
+   margin-top: 15px;
+   margin-right: 16px;
+   /*margin-right: auto;*/
+   /*margin-left: 20px;*/
+   float: right;
+   /*display: inline-block;*/
 }
 
-.sideBox {
-   width: 398px;
-   height: auto;
+.content {
+   /*position: relative;*/
+   /*width: 1205px;*/
+   width: 100%;
+   height: 100%;
    float: left;
+
    border: 1px solid black;
 }
 
 #question_view_container {
-   max-height: 400px;
-   overflow: scroll;
-   overflow-x: scroll;
-   display: none;
-}
-
-/*.question_viewer {
-   width: 792px;
-   height: auto;
-   float: left;
+   /*max-height: 400px;*/
+   /*width: 800px;*/
+   width: 68%;
+   overflow-y: scroll;
+   /*overflow-x: none;*/
    display: none;
 
-   border-radius: 5px;
-   border: 1px solid #ABABAB;
-}*/
-
-.viewer_header {
-   width: 798px;
-   height: auto;
-
-   /*border: 1px solid blue;*/
+   border: 1px solid yellow;
 }
 
 .viewer_title {
-   width: 580px;
+   width: 70%;
    font-size: 36px;
    padding: 15px;
    float: left;
@@ -71,7 +95,7 @@
 }
 
 .viewer_views {
-   width: 130px;
+   width: 20%;
    font-size: 24px;
    color: #828282;
    padding: 15px;
@@ -85,13 +109,15 @@
    font-size: 24px;
    padding: 15px;
    float: left;
-   width: 750px;
+   /*width: 750px;*/
+   width: 90%;
 
    border: 1px solid black;
 }
 
 .viewer_tags {
    height: auto;
+   width: 95%;
    float: left;
 
    border: 1px solid black;
@@ -110,6 +136,7 @@
    padding: 4px;
    background-color: #828282;
    color: white;
+   /*border-width: 0px;*/
 
    /*border: 1px solid black;*/
 }
@@ -117,30 +144,26 @@
 .viewer_tag_list li:hover {
    background-color: orange;
    cursor: default;
+   /*border-width: 0px;*/
 }
 
 .viewer_publishinfo {
    text-align: right;
-   padding-right: 20px;
-   width:758px; /*788px*/
+   margin-right: 20px;
+   /*width:758px; /*788px*/
+   width: 95%;
    float: left;
 
-   /*border: 1px solid yellow;*/
-}
-
-#question_actions {
-   /*border: 1px solid #ABABAB;*/
-   border: 1px solid green;
-   background-color: green;
+   border: 1px solid yellow;
 }
 
 #viewer_vote {
-   width: 778px;
+   width: 95%;
    height: 30px;
    display: inline;
    float: left;
 
-   /*border: 1px solid green;*/
+   border: 1px solid green;
 }
 
 #question_vote_text {
@@ -196,13 +219,20 @@
    width: auto;
    margin-left: 10px;
    margin-bottom: 10px;
+   margin-top: 14px;
+
+   border: 1px solid black;
 }
 
 #viewer_solution_post_btn {
    float: right;
+   text-align: right;
    width: auto;
    margin-right: 10px;
    margin-bottom: 10px;
+   margin-top: 14px;
+
+   border: 1px solid black;
 }
 
 .answer_key {
@@ -289,10 +319,29 @@
 }
 
 #solution_edit {
-   width: 200px;
-   height: 100px;
+   width: 778px;
+   height: 260px;
    float: left;
    display: none;
 
-   border: 1px solid black;
+   border: 1px solid #ABABAB;
+   border-radius: 5px;
+}
+
+#solution_content {
+   font-size: 16px;
+   width: 760px;
+   margin: 5px;
+}
+
+#post_solution_btn {
+   font-size: 12px;
+   float: left;
+   margin-left: 10px;
+}
+
+#post_solution_cancel_btn {
+   font-size: 12px;
+   float: right;
+   margin-right: 10px;
 }

@@ -1,7 +1,8 @@
 // Globals
-var TAGS = ['hash tables', 'binary trees', 'trees', 'arrays', 'queues', 'stacks', 'b+ trees', 'permutations', 'probability',
+var gTags = ['hash tables', 'binary trees', 'trees', 'arrays', 'queues', 'stacks', 'b+ trees', 'permutations', 'probability',
             'vectors', 'lists', 'linked lists', 'algorithms', 'implementations', 'testing', 'graphs', 'networks', 'patterns',
             'puzzles', 'sorting'];
+var TAGS = gTags;
 MAX_TAG_SEARCH_RESULTS = 5;
 var oldInput = '';
 
@@ -10,14 +11,16 @@ function showPostBox()
 {
    document.getElementById('shadow').style.display = 'block';
    document.getElementById('post_form_div').style.display = 'block';
+   console.log("show the post box");
    // Refresh the tags
-   TAGS = ['hash tables', 'binary trees', 'trees', 'arrays', 'queues', 'stacks'];
+   TAGS = gTags;
 }
 
 function closePostBox()
 {
    document.getElementById('shadow').style.display = 'none';
    document.getElementById('post_form_div').style.display = 'none';
+   console.log("closed the post box");
    clearPostForm();
 }
 
@@ -27,7 +30,7 @@ function clearPostForm()
    document.getElementById('question_title').value = '';
    document.getElementById('question_content').value = '';
    document.getElementById('question_tags').innerHTML = '';
-   TAGS = ['hash tables', 'binary trees', 'trees', 'arrays', 'queues', 'stacks'];
+   TAGS = gTags;
 }
 
 function clearTagSuggestions()
@@ -124,6 +127,8 @@ function main()
 
    // Redirect when question is clicked
    document.getElementById('userContributions').addEventListener('click', questionRedirect);
+
+   document.getElementById('post_button').addEventListener('click', showPostBox);
 }
 
 $(document).ready(main);

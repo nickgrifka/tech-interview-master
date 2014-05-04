@@ -4,6 +4,9 @@
 <link rel="stylesheet" type="text/css" href="/css/generic.css">
 <link rel="stylesheet" type="text/css" href="/css/contributions.css">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
+<link rel="icon" type="image/png" href="/img/logo_transparent.png">
+<title>tech-interview-master</title>
 </head>
 
 <div id="shadow">
@@ -45,19 +48,24 @@
 </div>
 
 <body>
+   <div id="banner">
+      <a id="post_link">
+         <div id="post_button" class="div_button">
+            Post
+         </div>
+      </a>
+
+      <div id="userName">
+         hello {{user_name}}
+      </div>
+   </div>
+
    <div class="container">
 
       <div class="header">
          <a href="/">
             Tech-Interview-Master
          </a>
-         <div id="userName">
-            hello {{user_name}}
-         </div>
-         <br>
-         <button id="post_button" onClick="showPostBox()">
-            Post
-         </button>
       </div>
 
       <div class="subtitle">
