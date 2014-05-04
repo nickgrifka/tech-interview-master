@@ -235,6 +235,16 @@
    border: 1px solid black;
 }
 
+#answer_viewer {
+   width: 100%;
+   height: auto;
+   background-color: white;
+   float: right;
+   display: none;
+
+   border-radius: 5px;
+}
+
 .answer_key {
    display: none;
 }
@@ -304,25 +314,16 @@
    /*border: 1px solid black;*/
 }
 
-#answer_viewer {
-   width: 758px;
-   height: auto;
-   background-color: white;
-   float: right;
-   display: none;
-
-   border-radius: 5px;
-}
-
 .answer_list_elt {
    margin: 20px;
 }
 
 #solution_edit {
-   width: 778px;
-   height: 260px;
+   width: 95%;
+   height: auto;
    float: left;
    display: none;
+   margin-left: 10px;
 
    border: 1px solid #ABABAB;
    border-radius: 5px;
@@ -330,7 +331,7 @@
 
 #solution_content {
    font-size: 16px;
-   width: 760px;
+   width: 98%;
    margin: 5px;
 }
 
