@@ -1,3 +1,6 @@
+QUESTION_URL_PARAMETER = 'q';
+QUERY_URL_PARAMETER = 'query';
+
 function votePost(e)
 {
    var question_key_string = e.target.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
@@ -138,10 +141,18 @@ function createAnswerElement(answer)
    return answerElement;
 }
 
+function tagClick(e)
+{
+   console.log('tag click');
+   var tag_contents = e.target.innerHTML;// console.log(e.target.parentNode.className);
+   document.getElementById('search').value = tag_contents;
+   startSearch(tag_contents);
+}
+
 function startSearch(query)
 {
    console.log('search with query: ' + query);
-   window.location = '/?query=' + query;
+   window.location = '/?' + QUERY_URL_PARAMETER + '=' + query;
 }
 
 function getUrlParameter(sParam)
@@ -194,11 +205,20 @@ function main()
    });
 
    // if user came from contributions, get current question
-   var q = getUrlParameter('q');
+   var q = getUrlParameter(QUESTION_URL_PARAMETER);
    if (q != null)
    {
       grabQuestionInfo(q);
    }
+
+   // if user performed a search, put the query string back in the search input
+   var query = getUrlParameter(QUERY_URL_PARAMETER);
+   if (query != null)
+   {
+      query = query.replace('%20', ' ');
+      document.getElementById('search').value = query;
+   }
+
 }
 
 $(document).ready(main);

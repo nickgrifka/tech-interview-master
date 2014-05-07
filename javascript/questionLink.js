@@ -36,6 +36,7 @@ function showQuestion(questionObj, canVote)
     for (var i = 0; i < questionObj.tags.length; i++)
     {
         var listItemElement = document.createElement('li');
+        listItemElement.addEventListener('click', tagClick);
         listItemElement.innerHTML = questionObj.tags[i];
         tagListElement.appendChild(listItemElement);
     }

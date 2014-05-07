@@ -248,10 +248,12 @@ class MainPageHandler(webapp2.RequestHandler):
         template_values = {}
 
         # Grab the users name to display
+        logged_in = False
         user_name = ''
         user = users.get_current_user()
         if user:
             user_name = user.nickname()
+            logged_in = True
         else:
             user_name = 'random user'
 
@@ -279,6 +281,7 @@ class MainPageHandler(webapp2.RequestHandler):
 
 
         template_values = {
+            'logged_in': logged_in,
             'user_name': user_name,
             'questions': user_friendly_questions,
             'debug1': debug1,
