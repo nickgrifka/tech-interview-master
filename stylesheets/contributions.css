@@ -1,8 +1,3 @@
-td:hover {
-   cursor: default;
-   background-color: gray;
-}
-
 #post_form_div {
    position: absolute;
    margin-top: 50px;
@@ -38,7 +33,29 @@ td:hover {
    margin: 5px;
    margin-bottom: 10px;
    font-family: Consolas, Courier New, monospace;
+}
 
+td:hover {
+   cursor: default;
+   background-color: gray;
+}
+
+#question_tags {
+   width: 90%;
+   height: auto;
+
+   /*border: 1px solid black;*/
+}
+
+#question_tags li {
+   height: auto;
+   font-size: 14px;
+   display: inline;
+   margin-right: 18px;
+   margin-bottom: 5px;
+   padding: 4px;
+   background-color: orange;
+   color: white;
 }
 
 #post_form_submit {
