@@ -76,6 +76,22 @@ function postSolution(e)
    closeSolutionPost(e);
 }
 
+function toggleSolutions(e)
+{
+   if (document.getElementById('answer_viewer').style.display == 'none')
+   {
+      // console.log('display is: ' + document.getElementById('answer_viewer').style.display);
+      document.getElementById('viewer_solution_btn').innerHTML = 'hide solutions';
+      getSolutions(e);
+   }
+   else
+   {
+      // console.log('display is: ' + document.getElementById('answer_viewer').style.display);
+      document.getElementById('viewer_solution_btn').innerHTML = 'view solutions';
+      document.getElementById('answer_viewer').style.display = 'none';
+   }
+}
+
 function closeSolutionPost()
 {
    document.getElementById('solution_edit').style.display = 'none';
@@ -187,7 +203,7 @@ function main()
 
    if (document.getElementById('viewer_solution_btn') != null)
    {
-      document.getElementById('viewer_solution_btn').addEventListener('click', getSolutions);
+      document.getElementById('viewer_solution_btn').addEventListener('click', toggleSolutions);
    }
 
    if (document.getElementById('viewer_solution_post_btn') != null)
