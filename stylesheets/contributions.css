@@ -5,20 +5,60 @@ td:hover {
 
 #post_form_div {
    position: absolute;
-   margin-top: 100px;
-   margin-left: 400px;
-   width: 500px;
-   height: 500px;
-   background-color: green;
+   margin-top: 50px;
+   margin-left: 300px;
+   width: 700px;
+   height: auto;
+   border-radius: 5px;
+   border: 1px solid #ABABAB;
+   background-color: white;
    display: none;
    z-index: 100;
 }
 
+#question_title {
+   font-size: 16px;
+   width: 97%;
+   margin: 5px;
+   margin-bottom: 10px;
+   font-family: Consolas, Courier New, monospace;
+}
+
+#question_content {
+   font-size: 16px;
+   width: 97%;
+   margin: 5px;
+   margin-bottom: 10px;
+   font-family: Consolas, Courier New, monospace;
+}
+
+#tag_search {
+   font-size: 16px;
+   width: 50%;
+   margin: 5px;
+   margin-bottom: 10px;
+   font-family: Consolas, Courier New, monospace;
+
+}
+
+#post_form_submit {
+   width: auto;
+   height: auto;
+   font-size: 12px;
+   float: left;
+   margin: 10px;
+
+   /*border: 1px solid black;*/
+}
+
 #post_form_close {
-   width: 50px;
-   height: 30px;
+   width: auto;
+   height: auto;
    font-size: 12px;
    float: right;
+   margin: 10px;
+
+   /*border: 1px solid black;*/
 }
 
 #search_results {
@@ -26,8 +66,4 @@ td:hover {
    height: auto;
    background:white;
    border-collapse:collapse;
-}
-
-#question_title {
-   
 }

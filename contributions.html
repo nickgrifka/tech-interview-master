@@ -13,20 +13,18 @@
 </div>
 
 <div id="post_form_div">
-   <form id="post_form" method="post" action="/contributions" onsubmit="submitQuestionForm()">
+   <form id="post_form" method="post" action="/contributions">
       <!-- Title input -->
-      Question Title:
-      <input type="text" id="question_title" name="question_title" maxlength="40">
+      <input type="text" id="question_title" name="question_title" placeholder="Title..." maxlength="40">
       <br/>
 
       <!-- Content input -->
-      Question Content:
-      <input type="text" id="question_content" name="question_content">
+      <textarea type="text" id="question_content" placeholder="Question contents..." rows="12"></textarea>
       <br/>
 
       <!-- Tag input -->
-      Search Tags:
-      <input type="text" id="tag_search">
+      <p>Attach tags so users can search for your post easier</p>
+      <input type="text" id="tag_search" placeholder="Search tags...">
       <table id="search_results">
          <!-- this table gets populated with search results -->
       </table>
@@ -34,18 +32,20 @@
          <!-- this list gets populated with user selected tags -->
       </ul>
       <br/>
-
-      <!-- Submit -->
-      <button type="submit">
-         Submit
-      </button>
    </form>
 
+   <!-- Submit -->
+   <div id="post_form_submit" class="textLink" onClick="submitQuestionForm()">Submit</div>
+
    <!-- Button to close out of the post window -->
-   <button id="post_form_close" onClick="closePostBox()">
-      Close
-   </button>
+   <div id="post_form_close" class="textLink" onClick="closePostBox()">Close</div>
 </div>
+
+<!-- <div id="solution_edit">
+   <textarea id="solution_content" type="text" placeholder="Write solution here" rows="12"></textarea>
+   <div id="post_solution_btn" class="textLink"><b>Post</b></div>
+   <div id="post_solution_cancel_btn" class="textLink">Cancel</div>
+</div> -->
 
 <body>
    <div id="banner">
@@ -90,9 +90,7 @@
          Stats page???
       </div>
 
-      <div class="footer">
-         footer
-      </div>
+      <div class="footer">Created by <a class="personal_link" href="http://www.nick-grifka.com">Nick Grifka</a> Last updated May 2014</div>
 
    </div>
 </body>

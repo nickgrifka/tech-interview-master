@@ -77,17 +77,27 @@ function tagSearch()
 
 function submitQuestionForm()
 {
-   tags = grabQuestionTags();
-
-   var tagInput = document.createElement("input");
-   tagInput.setAttribute("type", "hidden");
-   tagInput.setAttribute("name", "tags");
-   tagInput.setAttribute("value", tags);
    var form = document.getElementById("post_form")
-   form.appendChild(tagInput);
-   // form.submit();
+
+   // Append the tags to the form
+   var tags = grabQuestionTags();
+   addHiddenInput(form, 'tags', tags);
+
+   // Append the content to the form
+   var content = document.getElementById('question_content').value;
+   addHiddenInput(form, 'question_content', content);
+
+   form.submit();
 }
 
+function addHiddenInput(form, name, value)
+{
+   var input = document.createElement('input');
+   input.type = 'hidden';
+   input.name = name;
+   input.value = value;
+   form.appendChild(input);
+}
 
 function grabQuestionTags()
 {

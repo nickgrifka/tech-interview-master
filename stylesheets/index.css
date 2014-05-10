@@ -208,12 +208,6 @@
    background-image: url('/img/thumbs_down_filled.png');
 }
 
-.textLink:hover {
-   color: orange;
-   text-decoration: underline;
-   cursor: default;
-}
-
 #viewer_solution_btn {
    float: left;
    width: auto;
