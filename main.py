@@ -116,12 +116,14 @@ def search(query):
     for q, i in zip(questions, range(len(score_index))):
         if q.question_title.lower().find(query) != -1:
             score_index[i] = score_index[i] + 5
+            if q.question_title.lower().find(query) == 0:
+                score_index[i] = score_index[i] + 1
             debug += 'question: ' + q.question_title + ' has a title substring of query: '
 
     # content score addition
     for q, i in zip(questions, range(len(score_index))):
         if q.question_content.lower().find(query) != -1:
-            score_index[i] = score_index[i] + 2
+            score_index[i] = score_index[i] + 1
             debug += 'question: ' + q.question_title + ' has a content substring of query: '
 
     debug += 'scores are: '
