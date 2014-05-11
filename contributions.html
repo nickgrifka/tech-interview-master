@@ -82,9 +82,33 @@
          {% endfor %}
       </ul>
 
-      <div>
-         Stats page???
-      </div>
+      <table id="stats_table">
+         <colgroup>
+            <col id="title_col">
+            <col id="value_col">
+            <col id="description_col">
+         </colgroup>
+         <tr>
+            <td>Questions Posted</td>
+            <td>{{ stats['num_posted_questions'] }}</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td>Answers Posted</td>
+            <td>{{ stats['num_posted_answers'] }}</td>
+            <td></td>
+         </tr>
+         <tr>
+            <td>Most Viewed Question</td>
+            <td>{{ stats['highest_views'] }} views</td>
+            <td>{{ stats['title_of_highest_views'] }}</td>
+         </tr>
+         <tr>
+            <td>Highest Rated Answer</td>
+            <td>{{ stats['highest_answer_rating'] }}</td>
+            <td>{{ stats['highest_answer_rating_preview'] }}</td>
+         </tr>
+      </table>
 
       <div class="footer">Created by <a class="personal_link" href="http://www.nick-grifka.com">Nick Grifka</a> Last updated May 2014</div>
 

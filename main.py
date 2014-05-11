@@ -311,9 +311,13 @@ class ContributionsPageHandler(webapp2.RequestHandler):
             user_friendly_questions = UserFriendlyQuestionList(tmp)
             user_friendly_questions = trimContent(user_friendly_questions)
 
+            # Collect that statistics of the user's posts
+            stats = self.gatherUserStatistics(userAccount)
+
             template_values = {
                 'user_name': user.nickname(),
                 'questions': user_friendly_questions,
+                'stats': stats,
             }
             template = JINJA_ENVIRONMENT.get_template('contributions.html')
             self.response.write(template.render(template_values))
@@ -330,6 +334,42 @@ class ContributionsPageHandler(webapp2.RequestHandler):
                             tags=self.request.get_all('tags'))
         question.put()
         self.redirect('/contributions');
+
+    def gatherUserStatistics(self, user_account):
+        s = {}
+        # Number of questions posted
+        questions = Question.query(Question.author==user_account.key).order(-Question.views)
+        s['num_posted_questions'] = questions.count()
+
+        # Number of answers posted
+        answers = Answer.query(Answer.author==user_account.key)
+        s['num_posted_answers'] = answers.count()
+
+        # Highest views / title
+        if questions.count() > 0:
+            s['highest_views'] = questions.get().views
+            s['title_of_highest_views'] = questions.get().question_title
+        else:
+            s['highest_views'] = 0
+            s['title_of_highest_views'] = '-'
+
+        # Highest rated answer
+        if answers.count() > 0:
+            highest_rated = answers.get()
+            highest_rating = len(highest_rated.up_votes) - len(highest_rated.down_votes)
+            for a in answers:
+                if len(a.up_votes) - len(a.down_votes) > highest_rating:
+                    highest_rated = a
+                    highest_rating = len(highest_rated.up_votes) - len(highest_rated.down_votes)
+
+            parent_title = highest_rated.parent_question.get().question_title
+            s['highest_answer_rating'] = highest_rating
+            s['highest_answer_rating_preview'] = parent_title + ': ' + highest_rated.answer_content
+        else:
+            s['highest_answer_rating'] = 0
+            s['highest_answer_rating_preview'] = '-'
+
+        return s
 
 class QuestionHandler(webapp2.RequestHandler):
 

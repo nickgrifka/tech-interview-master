@@ -35,11 +35,6 @@
    font-family: Consolas, Courier New, monospace;
 }
 
-td:hover {
-   cursor: default;
-   background-color: gray;
-}
-
 #question_tags {
    width: 90%;
    height: auto;
@@ -83,4 +78,42 @@ td:hover {
    height: auto;
    background:white;
    border-collapse:collapse;
+}
+
+#search_results td:hover {
+   cursor: default;
+   background-color: gray;
+}
+
+#stats_table {
+   width: 60%;
+   height: auto;
+   margin-left: 20px;
+   float: left;
+   font-size: 18px;
+
+   /*border: 1px solid black;*/
+   border-collapse: collapse;
+   /*border-spacing: 10px 25px;*/
+}
+
+#stats_table tr {
+   border-top: 1px solid #ABABAB;
+}
+
+#stats_table td {
+   padding-top: 10px;
+   padding-bottom: 10px;
+}
+
+#title_col {
+   width: 260px;
+}
+
+#value_col {
+   width: 150px;
+}
+
+#description_col {
+   width: 500px;
 }
