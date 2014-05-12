@@ -71,7 +71,8 @@ class UserFriendlyQuestion():
         self.tags = []
         temp_tag_list = str(ndb_question.tags[0]).split(',')
         for t in temp_tag_list:
-            self.tags.append(t)
+            if t != '':
+                self.tags.append(t)
 
 def UserFriendlyQuestionList(ndb_question_list):
     user_friendly_question_list = []
