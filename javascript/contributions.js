@@ -118,14 +118,8 @@ function questionRedirect(e)
    window.location = '/?q=' + e.target.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
 }
 
-
-function main()
+function addTag(e)
 {
-   // Gather tag search input
-   setInterval(function() {tagSearch()}, 50);
-
-   // Set on click listener for the tag results
-   document.getElementById('search_results').addEventListener('click', function(e) {
       var newNode = document.createElement('li');
       var textNode = document.createTextNode(e.target.innerHTML);
       newNode.appendChild(textNode);
@@ -134,7 +128,16 @@ function main()
       // Remove the tag so it can not be selected again
       TAGS.splice(TAGS.indexOf(e.target.innerHTML), 1);
       clearTagSuggestions();
-   });
+   }
+
+
+function main()
+{
+   // Gather tag search input
+   setInterval(function() {tagSearch()}, 50);
+
+   // Set on click listener for the tag results
+   document.getElementById('search_results').addEventListener('click', addTag);
 
    // Redirect when question is clicked
    document.getElementById('userContributions').addEventListener('click', questionRedirect);
