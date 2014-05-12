@@ -55,13 +55,21 @@ function showQuestion(questionObj, canVote)
     document.getElementById('question_view_container').style.display = 'block';
 }
 
+function getQuestion(e)
+{
+   var questionId = e.target.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
+   var currentQuestionId = document.getElementById('question_view_container').getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
+   if (questionId != currentQuestionId)
+   {
+      grabQuestionInfo(questionId);
+   }
+}
+
 
 function main()
 {
    // Set on click listener for the tag results
-   document.getElementById('userContributions').addEventListener('click', function(e) {
-    grabQuestionInfo(e.target.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML);
-   });
+   document.getElementById('userContributions').addEventListener('click', getQuestion);
 }
 
 $(document).ready(main);
