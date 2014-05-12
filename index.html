@@ -11,14 +11,14 @@
 
 <body>
    <div id="banner">
-      <a href="/contributions" id="post_link">
+      <a href="/contributions?p=y" id="post_link">
          <div id="post_button" class="div_button">
             Post
          </div>
       </a>
 
       <div id="userName">
-         hello {{user_name}}
+         hello <a id="contributions_link" href="/contributions?p=n">{{user_name}}</a>
       </div>
    </div>
 
@@ -96,6 +96,7 @@
 
 </body>
 
+<script src="/js/generic.js"></script>
 <script src="/js/questionLink.js"></script>
 <script src="/js/index.js"></script>
 </html>

@@ -5,6 +5,7 @@ var gTags = ['hash tables', 'binary trees', 'trees', 'arrays', 'queues', 'stacks
 var TAGS = gTags;
 MAX_TAG_SEARCH_RESULTS = 5;
 var oldInput = '';
+var POST_URL_PARAMETER = 'p';
 
 
 function showPostBox()
@@ -139,6 +140,13 @@ function main()
    document.getElementById('userContributions').addEventListener('click', questionRedirect);
 
    document.getElementById('post_button').addEventListener('click', showPostBox);
+
+   // Bring up the post form if requested
+   var p = getUrlParameter(POST_URL_PARAMETER);
+   if (p == 'y')
+   {
+      showPostBox();
+   }
 }
 
 $(document).ready(main);

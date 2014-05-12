@@ -64,6 +64,10 @@
    /*display: inline-block;*/
 }
 
+#contributions_link {
+   color: white;
+}
+
 .content {
    /*position: relative;*/
    /*width: 1205px;*/
