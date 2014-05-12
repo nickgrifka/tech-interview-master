@@ -50,6 +50,7 @@ function showQuestion(questionObj, canVote)
 
     // answers
     document.getElementById('answer_viewer').style.display = 'none';
+    document.getElementById('viewer_solution_btn').innerHTML = 'view solutions';
 
     // document.getElementsByClassName('question_viewer')[0].style.display = 'block';
     document.getElementById('question_view_container').style.display = 'block';
