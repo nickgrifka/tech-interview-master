@@ -78,6 +78,15 @@ function tagSearch()
 
 function submitQuestionForm()
 {
+   // Empty field checking
+   var content = document.getElementById('question_content').value;
+   var title = document.getElementById('question_title').value;
+   if (content == '' || title == '')
+   {
+      alert('Make sure you fill in the \'Title\' and \'Question content\' fields!');
+      return;
+   }
+
    var form = document.getElementById("post_form")
 
    // Append the tags to the form
@@ -85,7 +94,6 @@ function submitQuestionForm()
    addHiddenInput(form, 'tags', tags);
 
    // Append the content to the form
-   var content = document.getElementById('question_content').value;
    addHiddenInput(form, 'question_content', content);
 
    form.submit();
