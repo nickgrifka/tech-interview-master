@@ -85,6 +85,12 @@
    background-color: gray;
 }
 
+#contributions_subtitle {
+   padding: 30px 0px 15px 50px;
+
+   border: 1px solid black;
+}
+
 #stats_table {
    width: 60%;
    height: auto;
