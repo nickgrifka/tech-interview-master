@@ -219,6 +219,11 @@ function main()
       document.getElementById('search').value = query;
    }
 
+   // Check to see if search was unsuccessful
+   if (document.getElementsByClassName('questionListItem')[0] == null)
+   {
+      document.getElementById('no_results').style.display = "block";
+   }
 }
 
 $(document).ready(main);

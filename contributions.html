@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="/css/contributions.css">
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Michroma' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Vollkorn' rel='stylesheet' type='text/css'>
 <link rel="icon" type="image/png" href="/img/logo_transparent.png">
 <title>tech-interview-master</title>
 </head>
@@ -87,7 +88,7 @@
          <colgroup>
             <col id="title_col">
             <col id="value_col">
-            <col id="description_col">
+            <col id="description_col" class="italicized">
          </colgroup>
          <tr>
             <td>Questions Posted</td>
@@ -102,12 +103,12 @@
          <tr>
             <td>Most Viewed Question</td>
             <td>{{ stats['highest_views'] }} views</td>
-            <td>{{ stats['title_of_highest_views'] }}</td>
+            <td class="italicized">{{ stats['title_of_highest_views'] }}</td>
          </tr>
          <tr>
             <td>Highest Rated Answer</td>
             <td>{{ stats['highest_answer_rating'] }}</td>
-            <td>{{ stats['highest_answer_rating_preview'] }}</td>
+            <td class="italicized">{{ stats['highest_answer_rating_preview'] }}</td>
          </tr>
       </table>
 

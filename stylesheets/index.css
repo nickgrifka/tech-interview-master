@@ -1,10 +1,11 @@
 .search {
-   width: 1198px;
+   width: 100%;
    height: 60px;
    /*padding-top: 12px;*/
+   /*padding-right: 20px;*/
    text-align: center;
 
-   /*border: 1px solid black;*/
+   border: 1px solid black;
 }
 
 #search_wrapper {
@@ -15,9 +16,12 @@
    border-style: solid;
    border-color: #FFA733;
    margin-top: 8px;
+   margin-right: 20px;
    /*display: inline-block;*/
    float: right;
    /*padding: 3px;*/
+
+   /*border: 1px solid blue;*/
 }
 
 #search_icon {
@@ -45,7 +49,7 @@
    font-style: italic;
    display: inline-block;
 
-   /*border: 1px solid black;*/
+   /*border: 1px solid green;*/
 }
 
 #search:focus {
@@ -82,9 +86,13 @@
    /*max-height: 400px;*/
    /*width: 800px;*/
    width: 68%;
-   overflow-y: scroll;
+   /*overflow-y: scroll;*/
    /*overflow-x: none;*/
    display: none;
+
+   width: 69%;
+   height: auto;
+   float: left;
 
    border: 1px solid yellow;
 }
@@ -94,6 +102,8 @@
    font-size: 36px;
    padding: 15px;
    float: left;
+
+   font-family: 'Vollkorn', serif;
 
    border: 1px solid black;
 }
@@ -115,6 +125,8 @@
    float: left;
    /*width: 750px;*/
    width: 90%;
+
+   font-family: 'Vollkorn', serif;
 
    border: 1px solid black;
 }
@@ -234,13 +246,14 @@
 }
 
 #answer_viewer {
-   width: 100%;
+   width: 95%;
    height: auto;
    background-color: white;
    float: right;
    display: none;
+   padding: 0;
 
-   border-radius: 5px;
+   /*border: 1px solid black;*/
 }
 
 .answer_key {
@@ -343,4 +356,14 @@
    font-size: 12px;
    float: right;
    margin-right: 10px;
+}
+
+#no_results {
+   width: 100%;
+   margin-top: 60px;
+   text-align: center;
+   font-size: 24px;
+   /*font-style: italic;*/
+   color: #ABABAB;
+   display: none;
 }

@@ -28,6 +28,10 @@ a {
    text-decoration: none;
 }
 
+.italicized {
+   font-style: italic;
+}
+
 .personal_link {
    color: white;
    font-size: 14px;
@@ -61,7 +65,8 @@ ul {
 }
 
 .header {
-   width: 1198px;
+   /*width: 1198px;*/
+   width: 100%;
    height: 60px;
    font-size: 42px;
    font-family: 'Michroma', 'sans-serif';
@@ -120,6 +125,8 @@ ul {
 .questionListTitle {
    font-size: 20px;
    padding-left: 15px;
+
+   font-family: 'Vollkorn', serif;
 }
 
 .questionListPreview {
