@@ -1,27 +1,18 @@
 .search {
    width: 100%;
    height: 60px;
-   /*padding-top: 12px;*/
-   /*padding-right: 20px;*/
    text-align: center;
-
-   /*border: 1px solid black;*/
 }
 
 #search_wrapper {
    width: 360px;
    height: 34px;
-   /*margin-left: auto;*/
    border-radius: 20px;
    border-style: solid;
    border-color: #FFA733;
    margin-top: 8px;
    margin-right: 20px;
-   /*display: inline-block;*/
    float: right;
-   /*padding: 3px;*/
-
-   /*border: 1px solid blue;*/
 }
 
 #search_icon {
@@ -32,8 +23,6 @@
    margin-left: 5px;
    margin-top: auto;
    margin-bottom: auto;
-
-   /*border: 1px solid black;*/
 }
 
 
@@ -48,8 +37,6 @@
    font-size: 17px;
    font-style: italic;
    display: inline-block;
-
-   /*border: 1px solid green;*/
 }
 
 #search:focus {
@@ -62,10 +49,7 @@
    padding: 5px;
    margin-top: 15px;
    margin-right: 16px;
-   /*margin-right: auto;*/
-   /*margin-left: 20px;*/
    float: right;
-   /*display: inline-block;*/
 }
 
 #contributions_link {
@@ -73,28 +57,18 @@
 }
 
 .content {
-   /*position: relative;*/
-   /*width: 1205px;*/
    width: 100%;
    height: 100%;
    float: left;
-
-   /*border: 1px solid black;*/
 }
 
 #question_view_container {
-   /*max-height: 400px;*/
-   /*width: 800px;*/
    width: 68%;
-   /*overflow-y: scroll;*/
-   /*overflow-x: none;*/
    display: none;
-
    width: 64%;
    height: auto;
    float: right;
    padding-bottom: 20px;
-
    border-left: 1px solid #ABABAB;
 }
 
@@ -103,10 +77,7 @@
    font-size: 36px;
    padding: 15px;
    float: left;
-
    font-family: 'Vollkorn', serif;
-
-   /*border: 1px solid black;*/
 }
 
 .viewer_views {
@@ -116,34 +87,24 @@
    padding: 15px;
    float: right;
    text-align: right;
-
-   /*border: 1px solid black;*/
 }
 
 .viewer_content {
    font-size: 24px;
    padding: 15px;
    float: left;
-   /*width: 750px;*/
    width: 90%;
-
    font-family: 'Vollkorn', serif;
-
-   /*border: 1px solid black;*/
 }
 
 .viewer_tags {
    height: auto;
    width: 95%;
    float: left;
-
-   /*border: 1px solid black;*/
 }
 
 .viewer_tag_list {
-   /*display: inline;*/
    width: 738px;
-
 }
 
 .viewer_tag_list li {
@@ -153,25 +114,18 @@
    padding: 4px;
    background-color: #828282;
    color: white;
-   /*border-width: 0px;*/
-
-   /*border: 1px solid black;*/
 }
 
 .viewer_tag_list li:hover {
    background-color: orange;
    cursor: default;
-   /*border-width: 0px;*/
 }
 
 .viewer_publishinfo {
    text-align: right;
    margin-right: 20px;
-   /*width:758px; /*788px*/
    width: 95%;
    float: left;
-
-   /*border: 1px solid yellow;*/
 }
 
 #viewer_vote {
@@ -179,8 +133,6 @@
    height: 30px;
    display: inline;
    float: left;
-
-   /*border: 1px solid green;*/
 }
 
 #question_vote_text {
@@ -189,8 +141,6 @@
    margin-left: 10px;
    height: 100%;
    font-size: 100%;
-
-   /*border: 1px solid black;*/
 }
 
 #up_vote {
@@ -202,8 +152,6 @@
    background-image: url('/img/thumbs_up.png');
    background-repeat: no-repeat;
    background-size: 100% 100%;
-
-   /*border: 1px solid black;*/
 }
 #up_vote:hover {
    background-image: url('/img/thumbs_up_filled.png');
@@ -218,8 +166,6 @@
    background-image: url('/img/thumbs_down.png');
    background-repeat: no-repeat;
    background-size: 100% 100%;
-
-   /*border: 1px solid black;*/
 }
 #down_vote:hover {
    background-image: url('/img/thumbs_down_filled.png');
@@ -231,8 +177,6 @@
    margin-left: 10px;
    margin-bottom: 10px;
    margin-top: 14px;
-
-   /*border: 1px solid black;*/
 }
 
 #viewer_solution_post_btn {
@@ -242,8 +186,6 @@
    margin-right: 10px;
    margin-bottom: 10px;
    margin-top: 14px;
-
-   /*border: 1px solid black;*/
 }
 
 #answer_viewer {
@@ -253,8 +195,6 @@
    float: right;
    display: none;
    padding: 0;
-
-   /*border: 1px solid black;*/
 }
 
 .answer_key {
@@ -263,7 +203,6 @@
 
 .answer_div {
    width: 100%;
-   /*border-radius: 5px;*/
    border-top: 1px solid #ABABAB;
    padding: 14px;
 }
@@ -271,8 +210,6 @@
 .vote_cell {
    width: 50px;
    margin-right: 15px;
-
-   /*border: 1px solid black;*/
 }
 
 .answer_up_vote {
@@ -305,14 +242,10 @@
 
 .content_cell {
    padding-left:15px;
-
-   /*border: 1px solid black;*/
 }
 
 .answer_content {
    height: 75%;
-
-   /*border: 1px solid black;*/
 }
 
 .answer_meta {
@@ -322,8 +255,6 @@
    text-align: right;
    font-size: 14px;
    color: #828282;
-
-   /*border: 1px solid black;*/
 }
 
 .answer_list_elt {
@@ -336,7 +267,6 @@
    float: left;
    display: none;
    margin-left: 10px;
-
    border: 1px solid #ABABAB;
    border-radius: 5px;
 }
@@ -364,7 +294,6 @@
    margin-top: 60px;
    text-align: center;
    font-size: 24px;
-   /*font-style: italic;*/
    color: #ABABAB;
    display: none;
 }

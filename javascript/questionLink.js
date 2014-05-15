@@ -15,7 +15,6 @@ function grabQuestionInfo(keyString)
       data: data,
       success: function(response) {
          console.log('AJAX success!');
-         console.log(response);
          var obj = new Object()
          obj = JSON.parse(response)
          showQuestion(obj.current_question, obj.can_user_vote);
@@ -25,38 +24,38 @@ function grabQuestionInfo(keyString)
 
 function showQuestion(questionObj, canVote)
 {
-    document.getElementsByClassName('viewer_title')[0].innerHTML = questionObj.question_title;
-    document.getElementsByClassName('viewer_views')[0].innerHTML = questionObj.views + ' views';
-    document.getElementsByClassName('viewer_content')[0].innerHTML = questionObj.question_content;
-    document.getElementsByClassName('viewer_publishinfo')[0].innerHTML = 'Posted by ' + questionObj.author_nickname + ' at ' + questionObj.formatted_timestamp;
-    document.getElementById('question_view_container').getElementsByClassName('hiddenQuestionInfo')[0].innerHTML = questionObj.key_string;
+   document.getElementsByClassName('viewer_title')[0].innerHTML = questionObj.question_title;
+   document.getElementsByClassName('viewer_views')[0].innerHTML = questionObj.views + ' views';
+   document.getElementsByClassName('viewer_content')[0].innerHTML = questionObj.question_content;
+   document.getElementsByClassName('viewer_publishinfo')[0].innerHTML = 'Posted by ' + questionObj.author_nickname + ' at ' + questionObj.formatted_timestamp;
+   document.getElementById('question_view_container').getElementsByClassName('hiddenQuestionInfo')[0].innerHTML = questionObj.key_string;
 
-    // tags
-    var tagListElement = document.getElementById('viewer_tag_list');
-    for (var i = 0; i < questionObj.tags.length; i++)
-    {
-        var listItemElement = document.createElement('li');
-        listItemElement.addEventListener('click', tagClick);
-        listItemElement.innerHTML = questionObj.tags[i];
-        tagListElement.appendChild(listItemElement);
-    }
+   // tags
+   var tagListElement = document.getElementById('viewer_tag_list');
+   for (var i = 0; i < questionObj.tags.length; i++)
+   {
+     var listItemElement = document.createElement('li');
+     listItemElement.addEventListener('click', tagClick);
+     listItemElement.innerHTML = questionObj.tags[i];
+     tagListElement.appendChild(listItemElement);
+   }
 
-    // user question vote
-    document.getElementById('viewer_vote').style.display = 'block';
-    if (!canVote)
-    {
-        document.getElementById('viewer_vote').style.display = 'none';
-    }
+   // user question vote
+   document.getElementById('viewer_vote').style.display = 'block';
+   if (!canVote)
+   {
+     document.getElementById('viewer_vote').style.display = 'none';
+   }
 
-    // answers
-    document.getElementById('answer_viewer').style.display = 'none';
-    if (document.getElementById('viewer_solution_btn') != null)
-    {
-        document.getElementById('viewer_solution_btn').innerHTML = 'view solutions';
-    }
+   // answers
+   document.getElementById('answer_viewer').style.display = 'none';
+   if (document.getElementById('viewer_solution_btn') != null)
+   {
+     document.getElementById('viewer_solution_btn').innerHTML = 'view solutions';
+   }
 
-    // document.getElementsByClassName('question_viewer')[0].style.display = 'block';
-    document.getElementById('question_view_container').style.display = 'block';
+   // document.getElementsByClassName('question_viewer')[0].style.display = 'block';
+   document.getElementById('question_view_container').style.display = 'block';
 }
 
 function getQuestion(e)

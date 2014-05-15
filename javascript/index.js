@@ -17,7 +17,6 @@ function votePost(e)
 
    // Make the vote box disappear
    e.target.parentNode.style.display = 'none';
-   console.log(JSON.stringify(data))
 
    // Post
    $.ajax({
@@ -26,7 +25,6 @@ function votePost(e)
       data: JSON.stringify(data),
       success: function(data) {
          console.log('AJAX success!');
-         console.log(data);
       }
    });
 }
@@ -34,12 +32,9 @@ function votePost(e)
 
 function getSolutions(e)
 {
-   console.log(e.target.parentNode.id);
    var question_key_string = e.target.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
    var data = new Object();
    data = {'question_key': question_key_string};
-
-   console.log(JSON.stringify(data));
 
    $.ajax({
       type: 'GET',
@@ -47,7 +42,6 @@ function getSolutions(e)
       data: data,
       success: function(response) {
          console.log('AJAX success!');
-         console.log(response);
          showAnswers(JSON.parse(response)['answers']);
       }
    });
@@ -57,12 +51,9 @@ function getSolutions(e)
 function postSolution(e)
 {
    var solutionString = document.getElementById('solution_content').value;
-   console.log(e.target.parentNode.parentNode.parentNode.id); //getElementsByClassName('hiddenQuestionInfo')[0]);
    var question_key_string = e.target.parentNode.parentNode.parentNode.getElementsByClassName('hiddenQuestionInfo')[0].innerHTML;
    var data = new Object();
    data = {'question_key': question_key_string, 'content': solutionString};
-
-   console.log(JSON.stringify(data));
 
    $.ajax({
       type: 'POST',
@@ -70,7 +61,6 @@ function postSolution(e)
       data: JSON.stringify(data),
       success: function(response) {
          console.log('AJAX success!');
-         console.log(response);
       }
    });
    closeSolutionPost(e);
@@ -110,7 +100,6 @@ function showAnswers(answersList)
    var answerList = document.getElementById('answer_viewer');
    answerList.innerHTML = '';
    answerList.style.display = 'block';
-   console.log('here');
    for (var i = 0; i < answersList.length; i++)
    {
       var answerElement = createAnswerElement(answersList[i]);
@@ -130,11 +119,8 @@ function downVoteAnswer(e)
 
 function voteAnswer(e, status)
 {
-   console.log(e.target.parentNode.parentNode.parentNode.parentNode.parentNode.className);
    var answer_key = e.target.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('answer_key')[0].innerHTML;
    var data = {'answer_key': answer_key, 'vote_status': status};
-
-   console.log(JSON.stringify(data));
 
    $.ajax({
       type: 'POST',
@@ -142,7 +128,6 @@ function voteAnswer(e, status)
       data: JSON.stringify(data),
       success: function(response) {
          console.log('AJAX sucessful');
-         console.log(response);
       }
    })
 }
@@ -159,15 +144,13 @@ function createAnswerElement(answer)
 
 function tagClick(e)
 {
-   console.log('tag click');
-   var tag_contents = e.target.innerHTML;// console.log(e.target.parentNode.className);
+   var tag_contents = e.target.innerHTML;
    document.getElementById('search').value = tag_contents;
    startSearch(tag_contents);
 }
 
 function startSearch(query)
 {
-   console.log('search with query: ' + query);
    window.location = '/?' + QUERY_URL_PARAMETER + '=' + query;
 }
 

@@ -12,7 +12,6 @@ function showPostBox()
 {
    document.getElementById('shadow').style.display = 'block';
    document.getElementById('post_form_div').style.display = 'block';
-   console.log("show the post box");
    // Refresh the tags
    TAGS = gTags;
 }
@@ -21,7 +20,6 @@ function closePostBox()
 {
    document.getElementById('shadow').style.display = 'none';
    document.getElementById('post_form_div').style.display = 'none';
-   console.log("closed the post box");
    clearPostForm();
 }
 
@@ -50,7 +48,6 @@ function tagSearch()
    {
       // clear the old query results
       document.getElementById('search_results').innerHTML = '';
-      console.log('cleared search results');
 
       if (input == '')
       {
@@ -59,12 +56,10 @@ function tagSearch()
       }
 
       var numResults = 0;
-      console.log('tags length: ' + TAGS.length);
       for (var i = 0; i < TAGS.length; i++)
       {
          if (TAGS[i].indexOf(input) != -1 && numResults < MAX_TAG_SEARCH_RESULTS)
          {
-            console.log('match with: ' + TAGS[i]+ '\n');
             var table = document.getElementById('search_results');
             var newRow = table.insertRow(0);
             var newCell = newRow.insertCell(0);

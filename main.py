@@ -17,9 +17,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
-# jinja_environment = jinja2.Environment(loader=
-#     jinja2.FileSystemLoader(os.path.dirname(__file__)))
-
 
 class UserAccount(ndb.Model):
     user = ndb.UserProperty()
@@ -100,18 +97,15 @@ def has_user_voted(ndb_user, ndb_question):
     return False
 
 def search(query):
-    debug = ''
     SCORE_THRESHOLD = 2
     questions = Question.query()
     score_index = [0 for i in range(questions.count())]
-    debug += 'query result length=' + str(questions.count())
     # tag score addition
     for q, i in zip(questions, range(len(score_index))):
         tags = (q.tags[0]).split(',')
         for tag in tags:
             if tag == query:
                 score_index[i] = score_index[i] + 3
-                debug += 'question: ' + q.question_title + ' has a matching tag of ' + tag + ': '
 
     # title score addition
     for q, i in zip(questions, range(len(score_index))):
@@ -119,25 +113,17 @@ def search(query):
             score_index[i] = score_index[i] + 5
             if q.question_title.lower().find(query) == 0:
                 score_index[i] = score_index[i] + 1
-            debug += 'question: ' + q.question_title + ' has a title substring of query: '
 
     # content score addition
     for q, i in zip(questions, range(len(score_index))):
         if q.question_content.lower().find(query) != -1:
             score_index[i] = score_index[i] + 1
-            debug += 'question: ' + q.question_title + ' has a content substring of query: '
 
-    debug += 'scores are: '
     # pick the top scorers
     top_scorers = []
     for q, i in zip(questions, range(len(score_index))):
-        debug += str(score_index[i]) + ', '
         if score_index[i] > SCORE_THRESHOLD:
             top_scorers.append(q)
-
-
-    # debug
-    # return debug
 
     return top_scorers
 
@@ -168,7 +154,7 @@ class QuestionVoteHandler(webapp2.RequestHandler):
 class AnswerHandler(webapp2.RequestHandler):
 
     def get(self):
-        key_string = self.request.get('question_key') # AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH
+        key_string = self.request.get('question_key')
         if key_string != None and key_string != '':
             # retrieve the answers asscoiated with the question key
             question_key = ndb.Key(urlsafe=self.request.get('question_key'))
@@ -270,25 +256,17 @@ class MainPageHandler(webapp2.RequestHandler):
         user_friendly_questions = UserFriendlyQuestionList(tmp)
         user_friendly_questions = trimContent(user_friendly_questions)
 
-        debug1 = ''
-        debug2 = 'debug2|'
-
         # Grabs the relevant posts to the user's query if 'query' parameter is in the url
         query = self.request.get('query')
         if query != None and query != '':
             # search fn call
-            debug1 = 'search fired'
             question_obj_list = search(query)
             user_friendly_questions = UserFriendlyQuestionList(question_obj_list)
-            # debug1 = search(query)
-
 
         template_values = {
             'logged_in': logged_in,
             'user_name': user_name,
             'questions': user_friendly_questions,
-            'debug1': debug1,
-            'debug2': debugParam,
         }
         template = JINJA_ENVIRONMENT.get_template('index.html')
         self.response.write(template.render(template_values))
@@ -329,9 +307,8 @@ class ContributionsPageHandler(webapp2.RequestHandler):
                             question_title=self.request.get('question_title'),
                             question_content=self.request.get('question_content'),
                             views=0,
-                            # add up vote and down vote init
-                            up_votes=[], #init with this? getUser(user).key
-                            down_votes = [], #init with this? getUser(user).key
+                            up_votes=[],
+                            down_votes = [],
                             tags=self.request.get_all('tags'))
         question.put()
         self.redirect('/contributions');
@@ -407,8 +384,6 @@ class QuestionHandler(webapp2.RequestHandler):
                                                'tags': user_friendly_question.tags
                                                },
                                             'can_user_vote': can_user_vote}))
-            #test
-            # self.response.write("  url: " + str(self.request.url))
         else:
             self.response.write("Error: no question string specified")
 

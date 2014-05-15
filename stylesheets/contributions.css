@@ -38,8 +38,6 @@
 #question_tags {
    width: 90%;
    height: auto;
-
-   /*border: 1px solid black;*/
 }
 
 #question_tags li {
@@ -59,8 +57,6 @@
    font-size: 12px;
    float: left;
    margin: 10px;
-
-   /*border: 1px solid black;*/
 }
 
 #post_form_close {
@@ -69,8 +65,6 @@
    font-size: 12px;
    float: right;
    margin: 10px;
-
-   /*border: 1px solid black;*/
 }
 
 #search_results {
@@ -87,8 +81,6 @@
 
 #contributions_subtitle {
    padding: 30px 0px 15px 50px;
-
-   /*border: 1px solid black;*/
 }
 
 #stats_table {
@@ -97,10 +89,7 @@
    margin-left: 20px;
    float: left;
    font-size: 18px;
-
-   /*border: 1px solid black;*/
    border-collapse: collapse;
-   /*border-spacing: 10px 25px;*/
 }
 
 #stats_table tr {
