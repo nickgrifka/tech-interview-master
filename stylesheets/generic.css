@@ -61,7 +61,7 @@ ul {
    color: white;
    /*margin: 0px;*/
 
-   border: 1px solid yellow;
+   /*border: 1px solid yellow;*/
 }
 
 .header {
@@ -71,7 +71,7 @@ ul {
    font-size: 42px;
    font-family: 'Michroma', 'sans-serif';
 
-   border: 1px solid black;
+   /*border: 1px solid black;*/
 }
 
 .subtitle {

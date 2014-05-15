@@ -5,7 +5,7 @@
    /*padding-right: 20px;*/
    text-align: center;
 
-   border: 1px solid black;
+   /*border: 1px solid black;*/
 }
 
 #search_wrapper {
@@ -79,7 +79,7 @@
    height: 100%;
    float: left;
 
-   border: 1px solid black;
+   /*border: 1px solid black;*/
 }
 
 #question_view_container {
@@ -90,11 +90,12 @@
    /*overflow-x: none;*/
    display: none;
 
-   width: 69%;
+   width: 64%;
    height: auto;
-   float: left;
+   float: right;
+   padding-bottom: 20px;
 
-   border: 1px solid yellow;
+   border-left: 1px solid #ABABAB;
 }
 
 .viewer_title {
@@ -105,7 +106,7 @@
 
    font-family: 'Vollkorn', serif;
 
-   border: 1px solid black;
+   /*border: 1px solid black;*/
 }
 
 .viewer_views {
@@ -116,7 +117,7 @@
    float: right;
    text-align: right;
 
-   border: 1px solid black;
+   /*border: 1px solid black;*/
 }
 
 .viewer_content {
@@ -128,7 +129,7 @@
 
    font-family: 'Vollkorn', serif;
 
-   border: 1px solid black;
+   /*border: 1px solid black;*/
 }
 
 .viewer_tags {
@@ -136,7 +137,7 @@
    width: 95%;
    float: left;
 
-   border: 1px solid black;
+   /*border: 1px solid black;*/
 }
 
 .viewer_tag_list {
@@ -170,7 +171,7 @@
    width: 95%;
    float: left;
 
-   border: 1px solid yellow;
+   /*border: 1px solid yellow;*/
 }
 
 #viewer_vote {
@@ -179,7 +180,7 @@
    display: inline;
    float: left;
 
-   border: 1px solid green;
+   /*border: 1px solid green;*/
 }
 
 #question_vote_text {
@@ -231,7 +232,7 @@
    margin-bottom: 10px;
    margin-top: 14px;
 
-   border: 1px solid black;
+   /*border: 1px solid black;*/
 }
 
 #viewer_solution_post_btn {
@@ -242,7 +243,7 @@
    margin-bottom: 10px;
    margin-top: 14px;
 
-   border: 1px solid black;
+   /*border: 1px solid black;*/
 }
 
 #answer_viewer {
