@@ -1,7 +1,12 @@
 // Globals
 var gTags = ['hash tables', 'binary trees', 'trees', 'arrays', 'queues', 'stacks', 'b+ trees', 'permutations', 'probability',
             'vectors', 'lists', 'linked lists', 'algorithms', 'implementations', 'testing', 'graphs', 'networks', 'patterns',
-            'puzzles', 'sorting'];
+            'puzzles', 'sorting', 'functions', 'C++', 'python', 'java', 'C#', 'javascript', 'ruby', 'C', 'objective-C', 'theory',
+            'maps', 'sets', 'functional programming', 'greedy algorithms', 'divide and conquer', 'dynamic programming',
+            'brain teasers', 'object oriented programming', 'programming languages', 'php', 'jquery', 'html', 'mysql', 'css',
+            'sql', 'json', 'regex', 'strings', 'multi-threading', 'node.js', 'security', 'sockets', 'http', 'parsing', 'rest',
+            'loops', 'design', 'math', 'memory', 'optimization', 'serialization', 'deserialization', 'databases', 'recursion',
+            'map-reduce', 'data structures', 'interfaces', 'lambda', 'multidimensional arrays', 'counting'];
 var TAGS = gTags;
 MAX_TAG_SEARCH_RESULTS = 5;
 var oldInput = '';
